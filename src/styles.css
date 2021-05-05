@@ -1,1 +1,78 @@
 /* Add application styles & imports to this file! */
+
+/* variables */
+:root {
+  --main: #6a75ca;
+  --white: #ffffff;
+  --bg-color: #eff2f8;
+}
+
+/* general */
+
+body {
+  font-family: "Poppins", sans-serif !important;
+  color: #333;
+}
+
+a,
+button {
+  font-family: "Poppins", sans-serif !important;
+}
+
+a {
+  color: #333 !important;
+}
+
+h1,
+.style-h1 {
+  color: var(--main);
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 35px !important;
+}
+
+h2,
+.style-h2 {
+  color: var(--main);
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 25px;
+}
+
+h3,
+.style-h3 {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 25px;
+}
+
+.cfy-button {
+  background: var(--main) !important;
+  color: #fff;
+  border-radius: 25px;
+  padding: 12px 25px;
+  border: none;
+  font-weight: bold;
+}
+
+.left-column {
+  margin-left: 10%;
+  padding-top: 2%;
+}
+
+.middle-column {
+  background: var(--bg-color);
+  padding-top: 2%;
+  height: 100vh;
+  padding-left: 5%;
+}
+
+.vaccination-item {
+  padding: 15%;
+  width: auto;
+  margin-top: 20%;
+  -webkit-box-shadow: 0px 4px 40px -30px rgba(188, 188, 188, 0.16);
+  box-shadow: 0px 4px 40px -30px rgba(188, 188, 188, 0.16);
+  border-radius: 20px;
+  background: #fff;
+}

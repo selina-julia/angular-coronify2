@@ -1,0 +1,13 @@
+<div class="vaccination-item">
+  <div class="content">
+    <h3 class="header">Impfung am {{ vaccination?.date | date:'dd.MM.yyyy'}}</h3>
+    <div class="description">{{ vaccination.maxParticipants }}</div>
+    <div class="description">{{ vaccination?.time | date:'shortTime' }} Uhr</div>
+    {{ vaccination?.location_id }}
+    <div class="metadata">
+      <!--<span *ngFor="let user of vaccination.users; last as l">
+      {{ user.firstname }} {{ user.lastname }}<span *ngIf="!l">, </span>
+      </span>-->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<h2>Aktuelle Impftermine</h2>
+<div class="ui grid">
+  <a *ngFor="let vaccination of vaccinations" class="five wide column item cfy-vaccination-list-item"
+    [vaccination]="vaccination" [routerLink]="['./', vaccination.id]"></a>
+</div>
+
+<!--<div class="ui middle aligned container selection divided list">
+  <h1>Impftermine Übersicht</h1>
+  <a
+    *ngFor="let vaccination of vaccinations"
+    class="item cfy-vaccination-list-item"
+    [vaccination]="vaccination"
+    (click)="showDetails(vaccination)"
+  ></a>
+</div>
+-->
