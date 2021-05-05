@@ -3,6 +3,7 @@ import { Vaccination, User } from "./vaccination";
 import { HttpClient } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
+import { VaccinationFactory } from "./vaccination-factory";
 
 @Injectable()
 export class VaccinationChoiceService {
@@ -38,6 +39,14 @@ export class VaccinationChoiceService {
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
+
+  getAllSearch(searchTerm: string): Observable<Array<Vaccination>> {
+    return this.http
+      .get<Vaccination>(`${this.api}/vaccinations/search/${searchTerm}`)
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler));
+  }
+
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);
   }

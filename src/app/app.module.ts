@@ -10,6 +10,7 @@ import { VaccinationListComponent } from "./vaccination-list/vaccination-list.co
 import { LocationListItemComponent } from "./location-list-item/location-list-item.component";
 import { VaccinationListItemComponent } from "./vaccination-list-item/vaccination-list-item.component";
 import { VaccinationDetailsComponent } from "./vaccination-details/vaccination-details.component";
+import { VaccinationSearchComponent } from "./vaccination-search/vaccination-search.component";
 import { VaccinationChoiceService } from "./shared/vaccination-choice.service";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -22,7 +23,8 @@ registerLocaleData(localeDe);
     LocationListItemComponent,
     VaccinationListComponent,
     VaccinationListItemComponent,
-    VaccinationDetailsComponent
+    VaccinationDetailsComponent,
+    VaccinationSearchComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [VaccinationChoiceService, { provide: LOCALE_ID, useValue: "de" }],
