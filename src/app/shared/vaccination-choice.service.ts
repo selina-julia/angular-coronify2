@@ -18,7 +18,7 @@ export class VaccinationChoiceService {
             "Selina",
             "Schindlauer",
             "f",
-            new Date(),
+            new Date(2021, 5, 5),
             "phone",
             "mail",
             "password",
