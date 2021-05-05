@@ -14,7 +14,7 @@ export class VaccinationListComponent implements OnInit {
   constructor(private cfy: VaccinationChoiceService) {}
 
   ngOnInit() {
-    this.vaccinations = this.cfy.getAll();
+    this.cfy.getAll().subscribe(res => (this.vaccinations = res));
   }
   showDetails(vaccination: Vaccination) {
     this.showDetailsEvent.emit(vaccination);

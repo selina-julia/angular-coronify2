@@ -1,16 +1,27 @@
-<h2>Aktuelle Impftermine</h2>
+<!--<h2>Aktuelle Impftermine</h2>
 <div class="ui grid">
-  <a *ngFor="let vaccination of vaccinations" class="five wide column item cfy-vaccination-list-item"
-    [vaccination]="vaccination" [routerLink]="['./', vaccination.id]"></a>
-</div>
-
-<!--<div class="ui middle aligned container selection divided list">
-  <h1>Impftermine Übersicht</h1>
   <a
     *ngFor="let vaccination of vaccinations"
-    class="item cfy-vaccination-list-item"
+    class="five wide column item cfy-vaccination-list-item"
     [vaccination]="vaccination"
-    (click)="showDetails(vaccination)"
+    [routerLink]="['./', vaccination.id]"
   ></a>
 </div>
 -->
+
+<h2>Aktuelle Impftermine</h2>
+
+<div class="ui grid">
+  <a
+    *ngFor="let vaccination of vaccinations"
+    class="five wide column item cfy-vaccination-list-item"
+    [vaccination]="vaccination"
+    [routerLink]="['./', vaccination.id]"
+  ></a>
+  <div *ngIf="!vaccinations" class="ui active dimmer">
+    <div class="ui large text loader">Daten werden geladen...</div>
+  </div>
+  <p *ngIf="vaccinations && !vaccinations.length">
+    Es wurden noch keine Bücher eingetragen.
+  </p>
+</div>
