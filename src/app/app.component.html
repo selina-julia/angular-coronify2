@@ -8,14 +8,15 @@
   </div>
 </div>
 -->
+
 <div class="page-container">
   <div class="ui grid">
     <div class="four wide column">
       <div class="left-column">
         <p class="style-h2">Coronify.</p>
         <div class="ui vertical fluid tabular menu">
-          <a routerLink="home" routerLinkActive="active" class="item">Home</a>
-          <a routerLink="vaccinations" routerLinkActive="active" class="item">Impfungen</a>
+          <a routerLink="home" routerLinkActive="active" class="item"><i class="telegram plane icon"></i>Home</a>
+          <a routerLink="vaccinations" routerLinkActive="active" class="item"><i class="syringe icon"></i>Impfungen</a>
         </div>
       </div>
     </div>
@@ -23,6 +24,8 @@
     <div class="twelve wide stretched column">
       <div class="middle-column">
         <div class="segment">
+          <cfy-vaccination-search (vaccinationSelected)="vaccinationSelected($event)" class="column">
+          </cfy-vaccination-search>
           <router-outlet></router-outlet>
         </div>
       </div>

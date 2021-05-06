@@ -1,4 +1,7 @@
 import { Component } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Vaccination } from "../shared/vaccination";
+
 @Component({
   selector: "cfy-home",
   template: `
@@ -8,8 +11,6 @@ import { Component } from "@angular/core";
       <a routerLink="../vaccinations" class="ui cfy-button">
         Impftermine ansehen
       </a>
-
-      <cfy-vaccination-search class="column"></cfy-vaccination-search>
     </div>
   `,
   styles: []

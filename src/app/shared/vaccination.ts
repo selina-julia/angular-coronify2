@@ -8,8 +8,10 @@ export class Vaccination {
     public id: number,
     public maxParticipants: number,
     public date: Date,
-    public time: Date,
+    public starttime: Date,
+    public endtime: Date,
     public location_id: number,
+    public location: Location,
     public users?: User[]
   ) {}
 }

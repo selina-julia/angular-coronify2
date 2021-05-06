@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Vaccination } from "./shared/vaccination";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "bs-root",
@@ -11,6 +12,8 @@ export class AppComponent {
   detailsOn = false;
   vaccination: Vaccination;
 
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
   showList() {
     this.listOn = true;
     this.detailsOn = false;
@@ -19,5 +22,11 @@ export class AppComponent {
     this.vaccination = vaccination;
     this.listOn = false;
     this.detailsOn = true;
+  }
+
+  vaccinationSelected(vaccination: Vaccination) {
+    this.router.navigate(["../vaccinations", vaccination.id], {
+      relativeTo: this.route
+    });
   }
 }
