@@ -18,6 +18,7 @@ export class VaccinationDetailsComponent implements OnInit {
   ngOnInit() {
     const params = this.route.snapshot.params;
     this.cfy.getSingle(params["id"]).subscribe(b => (this.vaccination = b));
+    
   }
   getRating(num: number) {
     return new Array(num);

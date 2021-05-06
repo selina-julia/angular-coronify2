@@ -11,18 +11,19 @@
 
 <div class="page-container">
   <div class="ui grid">
-    <div class="four wide column">
+    <div class="three wide column">
       <div class="left-column">
         <p class="style-h2">Coronify.</p>
         <div class="ui vertical fluid tabular menu">
           <a routerLink="home" routerLinkActive="active" class="item"><i class="telegram plane icon"></i>Home</a>
           <a routerLink="vaccinations" routerLinkActive="active" class="item"><i class="syringe icon"></i>Impfungen</a>
-          <a routerLink="locations" routerLinkActive="active" class="item"><i class="syringe icon"></i>Impforte</a>
+          <a routerLink="locations" routerLinkActive="active"
+            class="item"><i class="map marker alternate icon"></i>Impforte</a>
         </div>
       </div>
     </div>
 
-    <div class="twelve wide stretched column">
+    <div class="thirteen wide stretched column">
       <div class="middle-column">
         <div class="segment">
           <cfy-vaccination-search (vaccinationSelected)="vaccinationSelected($event)" class="column">

@@ -1,7 +1,8 @@
 <div class="ui grid" *ngIf="location" class="item cfy-location-details">
   <div class="twelve wide column">
-    <h1 class="ui header">>{{ location.city }}</h1>
-    <h3 class="ui header">{{ location.name }}</h3>
+    <h1 class="ui header">{{ location.name }}</h1>
+    <div class="ui">{{ location.address }}</div>
+    <div class="ui">{{ location.postalcode }} {{ location.city }}</div>
     <div class="ui divider"></div>
     <div class="ui grid">
       <div class="four wide column">
@@ -18,23 +19,10 @@
   </div>
 </div>
 
-<button [routerLink]="'/locations'" class="ui red button">
+
+<!--<button [routerLink]="'/locations'" class="ui red button">
   Zurück zur Übersicht
-</button>
+</button>-->
 <button routerLink=".." class="ui crayola cfy-button">
   Zurück zur Übersicht
 </button>
-
-<div class="ui container grid">
-  <div class="row">
-    <div class="four wide column">
-      <p><span>Four</span></p>
-    </div>
-    <div class="eight wide column">
-      <p><span>Eight</span></p>
-    </div>
-    <div class="four wide column">
-      <p><span>Four</span></p>
-    </div>
-  </div>
-</div>
