@@ -14,11 +14,7 @@ export class VaccinationListComponent implements OnInit {
 
   @Output() showDetailsEvent = new EventEmitter<Vaccination>();
 
-  constructor(
-    private cfy: VaccinationChoiceService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private cfy: VaccinationChoiceService) {}
 
   ngOnInit() {
     this.cfy.getAll().subscribe(res => (this.vaccinations = res));
