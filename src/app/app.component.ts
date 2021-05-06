@@ -11,6 +11,7 @@ export class AppComponent {
   listOn = true;
   detailsOn = false;
   vaccination: Vaccination;
+  location: Location;
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 

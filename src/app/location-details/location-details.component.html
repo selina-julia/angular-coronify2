@@ -1,0 +1,40 @@
+<div class="ui grid" *ngIf="location" class="item cfy-location-details">
+  <div class="twelve wide column">
+    <h1 class="ui header">>{{ location.city }}</h1>
+    <h3 class="ui header">{{ location.name }}</h3>
+    <div class="ui divider"></div>
+    <div class="ui grid">
+      <div class="four wide column">
+        <h4 class="ui header">User</h4>
+        <span *ngFor="let vaccination of location.vaccinations; last as l">
+          {{ vaccination.starttime }} {{ vaccination.endtime }}<span *ngIf="!l">, </span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="sixteen wide column">
+    <h3 class="ui header">Zeit</h3>
+    {{ location.city }}
+  </div>
+</div>
+
+<button [routerLink]="'/locations'" class="ui red button">
+  Zurück zur Übersicht
+</button>
+<button routerLink=".." class="ui crayola cfy-button">
+  Zurück zur Übersicht
+</button>
+
+<div class="ui container grid">
+  <div class="row">
+    <div class="four wide column">
+      <p><span>Four</span></p>
+    </div>
+    <div class="eight wide column">
+      <p><span>Eight</span></p>
+    </div>
+    <div class="four wide column">
+      <p><span>Four</span></p>
+    </div>
+  </div>
+</div>

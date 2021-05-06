@@ -11,7 +11,6 @@ export class Vaccination {
     public starttime: Date,
     public endtime: Date,
     public location_id: number,
-    public location: Location,
     public users?: User[]
   ) {}
 }
