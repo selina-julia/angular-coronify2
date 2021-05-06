@@ -31,7 +31,11 @@ registerLocaleData(localeDe);
     LocationDetailsComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [VaccinationChoiceService, { provide: LOCALE_ID, useValue: "de" }],
+  providers: [
+    VaccinationChoiceService,
+    LocationService,
+    { provide: LOCALE_ID, useValue: "de" }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

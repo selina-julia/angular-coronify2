@@ -19,7 +19,7 @@ export class LocationFactory {
       location.address,
       location.postalcode,
       location.city,
-      location.vaccination_id
+      location.vaccinations
     );
   }
 }

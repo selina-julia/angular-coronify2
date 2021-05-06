@@ -1,12 +1,14 @@
 <div class="location-item">
   <div class="content">
     <div class="content-top">
-      <h3 class="header">Ort: {{ location?.city'}}</h3>
+
+      <h3>{{ location.vaccinations.date }}</h3>
+      <h3 class="header">Ort: {{ location?.city}}</h3>
       <div class="description">{{ location.postalcode }}</div>
       <div class="metadata">
-        <!--<span *ngFor="let user of location.users; last as l">
-      {{ user.firstname }} {{ user.lastname }}<span *ngIf="!l">, </span>
-      </span>-->
+        <span *ngFor="let vaccination of location.vaccinations; last as l">
+      {{ vaccination.date }} <span *ngIf="!l">, </span>
+        </span>
       </div>
     </div>
     <div class="content-bottom">

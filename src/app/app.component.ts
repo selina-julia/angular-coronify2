@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Vaccination } from "./shared/vaccination";
+import { Location } from "./shared/location";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
