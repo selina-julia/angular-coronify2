@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
-import { Vaccination, User } from "./vaccination";
-import { HttpClient } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { catchError, retry } from "rxjs/operators";
-import { VaccinationFactory } from "./vaccination-factory";
+import { Injectable } from '@angular/core';
+import { Vaccination, User } from './vaccination';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { VaccinationFactory } from './vaccination-factory';
 
 @Injectable()
 export class VaccinationChoiceService {
-  private api = "https://coronify.s1810456034.student.kwmhgb.at/api";
+  private api = 'https://coronify.s1810456034.student.kwmhgb.at/api';
   constructor(private http: HttpClient) {}
   getAll(): Observable<Array<Vaccination>> {
     return this.http
@@ -16,9 +16,9 @@ export class VaccinationChoiceService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getLocationName(id: string): Observable<Vaccination> {
+  getLocationName(): Observable<any> {
     return this.http
-      .get<Vaccination>(`${this.api}/vaccinations/getLocationName/${id}`)
+      .get<Vaccination>(`${this.api}/vaccinations/getLocationName/1`)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
