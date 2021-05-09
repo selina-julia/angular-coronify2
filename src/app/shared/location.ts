@@ -1,5 +1,5 @@
-import { Vaccination } from "./vaccination";
-export { Vaccination } from "./vaccination";
+import { Vaccination } from './vaccination';
+export { Vaccination } from './vaccination';
 
 export class Location {
   constructor(
@@ -7,7 +7,6 @@ export class Location {
     public name: string,
     public address: string,
     public postalcode: number,
-    public city: string,
-    public vaccinations?: Vaccination[]
+    public city: string
   ) {}
 }

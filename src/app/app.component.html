@@ -19,6 +19,7 @@
           <a routerLink="vaccinations" routerLinkActive="active" class="item"><i class="syringe icon"></i>Impfungen</a>
           <a routerLink="locations" routerLinkActive="active"
             class="item"><i class="map marker alternate icon"></i>Impforte</a>
+          <a routerLink="admin" routerLinkActive="active" class="item"><i class="lock icon"></i>Administration</a>
         </div>
       </div>
     </div>
@@ -26,8 +27,6 @@
     <div class="thirteen wide stretched column">
       <div class="middle-column">
         <div class="segment">
-          <cfy-vaccination-search (vaccinationSelected)="vaccinationSelected($event)" class="column">
-          </cfy-vaccination-search>
           <router-outlet></router-outlet>
         </div>
       </div>

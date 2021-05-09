@@ -7,9 +7,6 @@
     <div class="ui grid">
       <div class="four wide column">
         <h4 class="ui header">User</h4>
-        <span *ngFor="let vaccination of location.vaccinations; last as l">
-          {{ vaccination.starttime }} {{ vaccination.endtime }}<span *ngIf="!l">, </span>
-        </span>
       </div>
     </div>
   </div>

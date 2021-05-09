@@ -1,18 +1,23 @@
-import { Component } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Vaccination } from "../shared/vaccination";
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Vaccination } from '../shared/vaccination';
 
 @Component({
-  selector: "cfy-home",
-  template: `
-    <div class="ui container">
-      <h1>Home</h1>
-      <p>hello this is home.</p>
-      <a routerLink="../vaccinations" class="ui cfy-button">
-        Impftermine ansehen
-      </a>
-    </div>
-  `,
+  selector: 'cfy-home',
+  templateUrl: './home.component.html',
   styles: []
 })
-export class HomeComponent {}
+export class HomeComponent {
+  listOn = true;
+  detailsOn = false;
+  vaccination: Vaccination;
+  location: Location;
+
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  vaccinationSelected(vaccination: Vaccination) {
+    this.router.navigate(['../vaccinations', vaccination.id], {
+      relativeTo: this.route
+    });
+  }
+}

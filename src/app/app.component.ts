@@ -25,10 +25,4 @@ export class AppComponent {
     this.listOn = false;
     this.detailsOn = true;
   }
-
-  vaccinationSelected(vaccination: Vaccination) {
-    this.router.navigate(["../vaccinations", vaccination.id], {
-      relativeTo: this.route
-    });
-  }
 }
