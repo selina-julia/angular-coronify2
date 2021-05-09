@@ -1,26 +1,51 @@
-<div class="ui grid" *ngIf="vaccination" class="item cfy-vaccination-details">
-  <div class="twelve wide column">
-    <h1 class="ui header">Impfung am {{ vaccination?.date | date:'dd.MM.yyyy' }}</h1>
-    <p class="description"><i class="clock outline icon"></i> {{ vaccination.starttime }} - {{ vaccination.endtime
-      }}</p>
-    <p> <i class="user outline icon"></i> {{vaccination.users.length}} / {{vaccination.maxParticipants}}</p>
+<div class="container">
+  <div class="ui grid" *ngIf="vaccination" class="item cfy-vaccination-details">
+    <div class="twelve wide column">
+      <h1 class="ui header">Impfung am {{ vaccination?.date | date:'dd.MM.yyyy' }}</h1>
+      <p class="description"><i class="clock outline icon"></i> {{ vaccination.starttime }} - {{ vaccination.endtime
+        }}</p>
+      <p> <i class="user outline icon"></i> {{vaccination.users.length}} / {{vaccination.maxParticipants}}</p>
 
-    <div><i class="map marker alternate icon"></i> {{vaccination?.location.city}}</div>
+      <h3>Standort</h3>
+      <div>{{vaccination?.location.name}} </div>
+      <div>{{vaccination?.location.address}}</div>
+      <div>{{vaccination?.location.postalcode}} {{vaccination?.location.city}}</div>
 
-    <h4 class="ui header">Angemeldete User:</h4>
-    <span *ngFor="let user of vaccination.users; last as l">
-          {{ user.firstname }} {{ user.lastname }} | {{user.birthdate | date:'dd.MM.yyyy'}} | {{user.email}}<span *ngIf="!l">, <div class="ui divider"></div> </span>
-    </span>
-  </div>
-</div>
+      <h4 class="ui header">Angemeldete User:</h4>
 
-<button [routerLink]="'/vaccinations'" class="ui crayola cfy-button">
+      <table class="ui celled table">
+        <thead>
+          <tr>
+            <th>SVNR</th>
+            <th>Name</th>
+            <th>Geschlecht</th>
+            <th>Geburtsdatum</th>
+            <th>Telefon</th>
+            <th>E-Mail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of vaccination.users; last as l">
+            <td data-label="SVNR">{{ user.ssn }}</td>
+            <td data-label="Name">{{ user.firstname }} {{ user.lastname }}</td>
+            <td data-label="Geschlecht">{{user.gender}}</td>
+            <td data-label="Geburtsdatum">{{user.birthdate | date:'dd.MM.yyyy'}}</td>
+            <td data-label="Telefon">{{user.phone}}</td>
+            <td data-label="E-Mail">{{user.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div> <br> <br>
+
+  <button [routerLink]="'/vaccinations'" class="ui crayola cfy-button">
   Zurück zur Übersicht
 </button>
-<!--<button routerLink=".." class="ui crayola cfy-button">
+  <!--<button routerLink=".." class="ui crayola cfy-button">
   Zurück zur Übersicht
 </button>-->
 
-<a class="ui tiny yellow labeled icon button" [routerLink]="['../../admin', vaccination?.id]">
-  <i class="write icon"></i> Impftermin bearbeiten
-</a>
+  <a class="ui tiny yellow labeled icon button" [routerLink]="['../../admin', vaccination?.id]">
+    <i class="write icon"></i> Impftermin bearbeiten
+  </a>
+</div>
