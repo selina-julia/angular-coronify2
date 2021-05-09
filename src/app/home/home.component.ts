@@ -15,6 +15,16 @@ export class HomeComponent {
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
+  showList() {
+    this.listOn = true;
+    this.detailsOn = false;
+  }
+  showDetails(vaccination: Vaccination) {
+    this.vaccination = vaccination;
+    this.listOn = false;
+    this.detailsOn = true;
+  }
+
   vaccinationSelected(vaccination: Vaccination) {
     this.router.navigate(['../vaccinations', vaccination.id], {
       relativeTo: this.route

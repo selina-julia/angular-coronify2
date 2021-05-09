@@ -26,6 +26,8 @@
 
     <div class="thirteen wide stretched column">
       <div class="middle-column">
+        <cfy-vaccination-search (vaccinationSelected)="vaccinationSelected($event)" class="column">
+        </cfy-vaccination-search>
         <div class="segment">
           <router-outlet></router-outlet>
         </div>

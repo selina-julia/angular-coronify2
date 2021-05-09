@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
-import { Vaccination } from "./shared/vaccination";
-import { Location } from "./shared/location";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component } from '@angular/core';
+import { Vaccination } from './shared/vaccination';
+import { Location } from './shared/location';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: "bs-root",
-  templateUrl: "./app.component.html",
+  selector: 'bs-root',
+  templateUrl: './app.component.html',
   styles: []
 })
 export class AppComponent {
@@ -24,5 +24,11 @@ export class AppComponent {
     this.vaccination = vaccination;
     this.listOn = false;
     this.detailsOn = true;
+  }
+
+  vaccinationSelected(vaccination: Vaccination) {
+    this.router.navigate(['../vaccinations', vaccination.id], {
+      relativeTo: this.route
+    });
   }
 }

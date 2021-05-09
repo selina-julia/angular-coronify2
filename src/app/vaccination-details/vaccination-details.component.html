@@ -5,6 +5,8 @@
       }}</p>
     <p> <i class="user outline icon"></i> {{vaccination.users.length}} / {{vaccination.maxParticipants}}</p>
 
+    <div><i class="map marker alternate icon"></i> {{vaccination?.location.city}}</div>
+
     <h4 class="ui header">Angemeldete User:</h4>
     <span *ngFor="let user of vaccination.users; last as l">
           {{ user.firstname }} {{ user.lastname }} | {{user.birthdate | date:'dd.MM.yyyy'}} | {{user.email}}<span *ngIf="!l">, <div class="ui divider"></div> </span>
