@@ -33,7 +33,7 @@ export class VaccinationChoiceService {
   }
   create(vaccination: Vaccination): Observable<any> {
     return this.http
-      .post(`${this.api}/vaccinations`, vaccination)
+      .post(`${this.api}/vaccinations/save`, vaccination)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
@@ -43,6 +43,7 @@ export class VaccinationChoiceService {
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
+
   remove(id: string): Observable<any> {
     return this.http
       .delete(`${this.api}/vaccinations/${id}`)

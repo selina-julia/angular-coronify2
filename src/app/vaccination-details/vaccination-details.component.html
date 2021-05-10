@@ -10,31 +10,35 @@
       <div>{{vaccination?.location.name}} </div>
       <div>{{vaccination?.location.address}}</div>
       <div>{{vaccination?.location.postalcode}} {{vaccination?.location.city}}</div>
+      <br>
+      <div *ngIf="vaccination.users.length != 0 ; else other_content">
 
-      <h4 class="ui header">Angemeldete User:</h4>
+        <h4 class="ui header">Angemeldete User:</h4>
 
-      <table class="ui celled table">
-        <thead>
-          <tr>
-            <th>SVNR</th>
-            <th>Name</th>
-            <th>Geschlecht</th>
-            <th>Geburtsdatum</th>
-            <th>Telefon</th>
-            <th>E-Mail</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of vaccination.users; last as l">
-            <td data-label="SVNR">{{ user.ssn }}</td>
-            <td data-label="Name">{{ user.firstname }} {{ user.lastname }}</td>
-            <td data-label="Geschlecht">{{user.gender}}</td>
-            <td data-label="Geburtsdatum">{{user.birthdate | date:'dd.MM.yyyy'}}</td>
-            <td data-label="Telefon">{{user.phone}}</td>
-            <td data-label="E-Mail">{{user.email}}</td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="ui celled table" *ngFor="let user of vaccination.users; last as l">
+          <thead>
+            <tr>
+              <th>SVNR</th>
+              <th>Name</th>
+              <th>Geschlecht</th>
+              <th>Geburtsdatum</th>
+              <th>Telefon</th>
+              <th>E-Mail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of vaccination.users; last as l">
+              <td data-label="SVNR">{{ user.ssn }}</td>
+              <td data-label="Name">{{ user.firstname }} {{ user.lastname }}</td>
+              <td data-label="Geschlecht">{{user.gender}}</td>
+              <td data-label="Geburtsdatum">{{user.birthdate | date:'dd.MM.yyyy'}}</td>
+              <td data-label="Telefon">{{user.phone}}</td>
+              <td data-label="E-Mail">{{user.email}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #other_content>Noch keine Anmeldungen zu diesem Termin!</ng-template>
     </div>
   </div> <br> <br>
 
@@ -47,5 +51,9 @@
 
   <a class="ui tiny yellow labeled icon button" [routerLink]="['../../admin', vaccination?.id]">
     <i class="write icon"></i> Impftermin bearbeiten
+  </a>
+  <a class="ui tiny red labeled icon button" (click)="removeVaccination()">
+    <i class="remove icon"></i>
+    Löschen
   </a>
 </div>

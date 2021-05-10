@@ -5,30 +5,21 @@ export class ErrorMessage {
     public text: string
   ) {}
 }
-
 export const VaccinationFormErrorMessages = [
-  new ErrorMessage('title', 'required', 'Ein Buchtitel muss angegeben werden'),
-  new ErrorMessage('isbn', 'required', 'Es muss eine ISBN angegeben werden'),
   new ErrorMessage(
-    'isbn',
-    'minlength',
-    'Die ISBN muss mindestens 10 Zeichen enthalten'
-  ),
-  new ErrorMessage(
-    'isbn',
-    'maxlength',
-    'Eine ISBN darf höchstens 13 Zeichen haben'
-  ),
-  new ErrorMessage(
-    'published',
+    'maxParticipants',
     'required',
-    'Es muss ein Erscheinungsdatum angegeben werden'
+    'Es muss eine maximale Anzahl der Teilnehmer:innen angegeben werden'
   ),
-  new ErrorMessage('authors', 'required', 'Es muss ein Autor angegeben werden'),
   new ErrorMessage(
-    'rating',
+    'maxParticipants',
     'min',
-    'Bewertung kann nur positive Werte annehmen'
+    'Die Anzahl der Teilnehmer:innen muss positiv sein'
   ),
-  new ErrorMessage('rating', 'max', 'Maximal 10 Sterne erlaubt')
+  new ErrorMessage('date', 'required', 'Es muss ein Datum angegeben werden'),
+  new ErrorMessage(
+    'starttime',
+    'required',
+    'Es muss eine Zeit angegeben werden'
+  )
 ];
