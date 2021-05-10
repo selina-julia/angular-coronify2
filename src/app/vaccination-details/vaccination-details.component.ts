@@ -1,36 +1,41 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { Vaccination } from '../shared/vaccination';
-import { VaccinationChoiceService } from '../shared/vaccination-choice.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VaccinationFactory } from '../shared/vaccination-factory';
+import { Vaccination } from '../shared/vaccination';
+import { Location } from '../shared/location';
+import { VaccinationChoiceService } from '../shared/vaccination-choice.service';
+import { LocationService } from '../shared/location.service';
+
 @Component({
-  selector: 'cfy-vaccination-details',
-  templateUrl: './vaccination-details.component.html',
-  styles: []
+  selector: 'is-vaccination-details',
+  templateUrl: './vaccination-details.component.html'
 })
 export class VaccinationDetailsComponent implements OnInit {
   @Input() vaccination: Vaccination;
   @Input() location: Location;
   @Output() showListEvent = new EventEmitter<any>();
 
-  /*vaccination: Vaccination = VaccinationFactory.empty();*/
   constructor(
-    private cfy: VaccinationChoiceService,
-    private router: Router,
-    private route: ActivatedRoute
+    private is: VaccinationChoiceService,
+    private is_loc: LocationService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
+
+  //ngOnInit() {}
+
   ngOnInit() {
-    //holt sich die gesamte Route und durch snapshot params bekommt man z.B :isbn
+    //man holt sich die gesamte Route und durch snapshot params bekommt man z.B :isbn
     const params = this.route.snapshot.params;
-    this.cfy.getSingle(params['id']).subscribe(res => (this.vaccination = res));
+    //gibt mir die genau dieses Buch mit der ISBN
+    this.is_loc.getSingle(params['id']).subscribe(res => (this.location = res));
+    this.is.getSingle(params['id']).subscribe(res => (this.vaccination = res));
   }
 
   removeVaccination() {
-    if (confirm('Impftermin wirklich löschen?')) {
-      this.cfy.remove[this.vaccination.id].subscribe(res =>
-        this.router.navigate(['../'], { relativeTo: this.route })
-      );
-      console.log(this.vaccination.id);
+    if (confirm('Wollen Sie den Impftermin wirklich löschen?')) {
+      this.is.remove[this.vaccination.id].subscribe(res => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
     }
   }
 }

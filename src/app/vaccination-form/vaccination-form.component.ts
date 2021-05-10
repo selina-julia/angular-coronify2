@@ -1,17 +1,16 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { VaccinationFactory } from "../shared/vaccination-factory";
-import { VaccinationChoiceService } from "../shared/vaccination-choice.service";
-import { Vaccination } from "../shared/vaccination";
-import { Location } from "../shared/location";
-import { VaccinationFormErrorMessages } from "./vaccination-form-error-messages";
-import { LocationService } from "../shared/location.service";
-
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { VaccinationFactory } from '../shared/vaccination-factory';
+import { VaccinationChoiceService } from '../shared/vaccination-choice.service';
+import { Vaccination } from '../shared/vaccination';
+import { Location } from '../shared/location';
+import { VaccinationFormErrorMessages } from './vaccination-form-error-messages';
+import { LocationService } from '../shared/location.service';
 
 @Component({
-  selector: "is-vaccination-form",
-  templateUrl: "./vaccination-form.component.html"
+  selector: 'cfy-vaccination-form',
+  templateUrl: './vaccination-form.component.html'
 })
 export class VaccinationFormComponent implements OnInit {
   //@Input() locations: Location;
@@ -27,7 +26,7 @@ export class VaccinationFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private is: VaccinationChoiceService,
+    private cfy: VaccinationChoiceService,
     private is_loc: LocationService,
     private route: ActivatedRoute,
     private router: Router
@@ -38,10 +37,10 @@ export class VaccinationFormComponent implements OnInit {
     this.vaccination.starttime = new Date(this.vaccination.starttime);
 
     //is der Parameter ID bei der URL angehängt --> wird es gerade upgedated
-    const id = this.route.snapshot.params["id"];
+    const id = this.route.snapshot.params['id'];
     if (id) {
       this.isUpdatingVaccination = true;
-      this.is.getSingle(id).subscribe(vaccination => {
+      this.cfy.getSingle(id).subscribe(vaccination => {
         this.vaccination = vaccination;
         //warum 2x init = asynchron; Rest Call dauert!
         this.initVaccination();
@@ -51,13 +50,13 @@ export class VaccinationFormComponent implements OnInit {
   }
 
   initVaccination() {
-
     this.vaccinationForm = this.fb.group({
       id: this.vaccination.id,
       //vorgefertigter Validator
-      date: [this.datePipeDate, Validators.required],
-      starttime: [this.datePipeTime, Validators.required],
-      endtime: [this.datePipeTime, Validators.required],
+
+      //date: [this.datePipeDate, Validators.required],
+      //starttime: [this.datePipeTime, Validators.required],
+      //endtime: [this.datePipeTime, Validators.required],
       maxParticipants: [
         this.vaccination.maxParticipants,
         [Validators.required, Validators.minLength(1)]
@@ -97,16 +96,15 @@ export class VaccinationFormComponent implements OnInit {
       this.vaccinationForm.value
     );
 
-
     if (this.isUpdatingVaccination) {
-      this.is.update(updatedVaccination).subscribe(res => {
-        this.router.navigate(["../../vaccinations", updatedVaccination.id], {
+      this.cfy.update(updatedVaccination).subscribe(res => {
+        this.router.navigate(['../../vaccinations', updatedVaccination.id], {
           relativeTo: this.route
         });
       });
     } else {
-      this.is.create(updatedVaccination).subscribe(res => {
-        this.router.navigate(["../vaccinations"], { relativeTo: this.route });
+      this.cfy.create(updatedVaccination).subscribe(res => {
+        this.router.navigate(['../vaccinations'], { relativeTo: this.route });
       });
     }
   }
