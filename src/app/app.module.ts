@@ -19,6 +19,7 @@ import { LocationListItemComponent } from './location-list-item/location-list-it
 import { LocationDetailsComponent } from './location-details/location-details.component';
 import { LocationService } from './shared/location.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 registerLocaleData(localeDe);
 
@@ -38,7 +39,8 @@ registerLocaleData(localeDe);
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     VaccinationChoiceService,
