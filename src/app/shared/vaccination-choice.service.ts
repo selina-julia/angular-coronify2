@@ -22,7 +22,7 @@ export class VaccinationChoiceService {
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
-  getSingle(id: string): Observable<Vaccination> {
+  getSingle(id: number): Observable<Vaccination> {
     return (
       this.http
         .get<Vaccination>(`${this.api}/vaccinations/${id}`)

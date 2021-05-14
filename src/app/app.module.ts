@@ -20,6 +20,7 @@ import { LocationDetailsComponent } from './location-details/location-details.co
 import { LocationService } from './shared/location.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 registerLocaleData(localeDe);
 
@@ -45,6 +46,7 @@ registerLocaleData(localeDe);
   providers: [
     VaccinationChoiceService,
     LocationService,
+    DatePipe,
     { provide: LOCALE_ID, useValue: 'de' }
   ],
   bootstrap: [AppComponent]

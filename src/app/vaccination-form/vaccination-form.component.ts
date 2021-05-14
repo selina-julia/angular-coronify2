@@ -67,7 +67,7 @@ export class VaccinationFormComponent implements OnInit {
       //vorgefertigter Validator
       location_id: [this.vaccination.location_id],
       starttime: [this.datePipeStart, Validators.required],
-      endime: [this.datePipeEnd, Validators.required],
+      endtime: [this.datePipeEnd, Validators.required],
       //date: [this.datePipeDate, Validators.required],
       //starttime: [this.datePipeTime, Validators.required],
       //endtime: [this.datePipeTime, Validators.required],
@@ -111,6 +111,17 @@ export class VaccinationFormComponent implements OnInit {
     const updatedVaccination: Vaccination = VaccinationFactory.fromObject(
       this.vaccinationForm.value
     );
+
+    const startTimeNew = moment(
+      this.vaccinationForm.value.date +
+        ' ' +
+        this.vaccinationForm.value.starttime
+    ).toDate();
+    const endTimeNew = moment(
+      this.vaccinationForm.value.date + ' ' + this.vaccinationForm.value.endtime
+    ).toDate();
+    updatedVaccination.starttime = startTimeNew;
+    updatedVaccination.endtime = endTimeNew;
 
     this.loc
       .getSingle(this.vaccinationForm.controls['location_id'].value)
