@@ -8,8 +8,8 @@ import { Location } from '../shared/location';
 import { VaccinationFormErrorMessages } from './vaccination-form-error-messages';
 import { LocationService } from '../shared/location.service';
 import { ToastrService } from 'ngx-toastr';
-//import moment from 'moment';
-//import { DatePipe } from '@angular/common';
+import moment from 'moment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'cfy-vaccination-form',
@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class VaccinationFormComponent implements OnInit {
   //@Input() locations: Location;
+  id: bigint;
   locations: Location[];
   vaccinationForm: FormGroup;
   //liefer einen leeren Impftermin
@@ -32,9 +33,9 @@ export class VaccinationFormComponent implements OnInit {
     private cfy: VaccinationChoiceService,
     private loc: LocationService,
     private route: ActivatedRoute,
-    private router: Router
-  ) //private datePipe: DatePipe
-  {}
+    private router: Router,
+    private datePipe: DatePipe
+  ) {}
   ngOnInit() {
     this.loc.getAll().subscribe(res => (this.locations = res));
 
@@ -53,22 +54,21 @@ export class VaccinationFormComponent implements OnInit {
   }
 
   initVaccination() {
-    /*this.datePipeStart = this.datePipe.transform(
+    this.datePipeStart = this.datePipe.transform(
       this.vaccination.starttime,
-      'HH:mm'
+      'HH:mm:ss'
     );
     this.datePipeEnd = this.datePipe.transform(
       this.vaccination.endtime,
-      'HH:mm'
+      'HH:mm:ss'
     );
-    */
 
     this.vaccinationForm = this.fb.group({
       id: this.vaccination.id,
       //vorgefertigter Validator
       location_id: [this.vaccination.location_id],
-      //starttime: [this.datePipeStart, Validators.required],
-      //endtime: [this.datePipeEnd, Validators.required],
+      starttime: [this.datePipeStart, Validators.required],
+      endtime: [this.datePipeEnd, Validators.required],
       //date: [this.datePipeDate, Validators.required],
       //starttime: [this.datePipeTime, Validators.required],
       //endtime: [this.datePipeTime, Validators.required],
@@ -108,12 +108,12 @@ export class VaccinationFormComponent implements OnInit {
   submitForm() {
     console.log(this.vaccinationForm.value);
     console.log('hi');
-    console.log(this.loc);
     const updatedVaccination: Vaccination = VaccinationFactory.fromObject(
       this.vaccinationForm.value
     );
+    console.log(this.vaccinationForm.value);
 
-    /*const startTimeNew = moment(
+    const startTimeNew = moment(
       this.vaccinationForm.value.date +
         ' ' +
         this.vaccinationForm.value.starttime
@@ -122,7 +122,7 @@ export class VaccinationFormComponent implements OnInit {
       this.vaccinationForm.value.date + ' ' + this.vaccinationForm.value.endtime
     ).toDate();
     updatedVaccination.starttime = startTimeNew;
-    updatedVaccination.endtime = endTimeNew;*/
+    updatedVaccination.endtime = endTimeNew;
 
     this.loc
       .getSingle(this.vaccinationForm.controls['location_id'].value)
