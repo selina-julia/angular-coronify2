@@ -7,6 +7,9 @@ import { Vaccination } from '../shared/vaccination';
 import { Location } from '../shared/location';
 import { VaccinationFormErrorMessages } from './vaccination-form-error-messages';
 import { LocationService } from '../shared/location.service';
+import { ToastrService } from 'ngx-toastr';
+import moment from 'moment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'cfy-vaccination-form',
@@ -19,8 +22,8 @@ export class VaccinationFormComponent implements OnInit {
   //liefer einen leeren Impftermin
   vaccination = VaccinationFactory.empty();
   isUpdatingVaccination = false;
-  datePipeTime: string;
-  datePipeDate: string;
+  datePipeStart: string;
+  datePipeEnd: string;
   //assoziatives Array mit string als wert und anfangs ist es leer
   errors: { [key: string]: string } = {};
 
@@ -29,14 +32,14 @@ export class VaccinationFormComponent implements OnInit {
     private cfy: VaccinationChoiceService,
     private loc: LocationService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) {}
   ngOnInit() {
     this.loc.getAll().subscribe(res => (this.locations = res));
 
     this.vaccination.starttime = new Date(this.vaccination.starttime);
 
-    //is der Parameter ID bei der URL angehängt --> wird es gerade upgedated
     const id = this.route.snapshot.params['id'];
     if (id) {
       this.isUpdatingVaccination = true;
@@ -50,10 +53,21 @@ export class VaccinationFormComponent implements OnInit {
   }
 
   initVaccination() {
+    this.datePipeStart = this.datePipe.transform(
+      this.vaccination.starttime,
+      'HH:mm'
+    );
+    this.datePipeEnd = this.datePipe.transform(
+      this.vaccination.endtime,
+      'HH:mm'
+    );
+
     this.vaccinationForm = this.fb.group({
       id: this.vaccination.id,
       //vorgefertigter Validator
       location_id: [this.vaccination.location_id],
+      starttime: [this.datePipeStart, Validators.required],
+      endime: [this.datePipeEnd, Validators.required],
       //date: [this.datePipeDate, Validators.required],
       //starttime: [this.datePipeTime, Validators.required],
       //endtime: [this.datePipeTime, Validators.required],
@@ -93,6 +107,7 @@ export class VaccinationFormComponent implements OnInit {
   submitForm() {
     console.log(this.vaccinationForm.value);
     console.log('hi');
+    console.log(this.loc);
     const updatedVaccination: Vaccination = VaccinationFactory.fromObject(
       this.vaccinationForm.value
     );
