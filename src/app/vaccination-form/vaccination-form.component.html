@@ -9,7 +9,7 @@
     <div *ngIf="errors.maxParticipants" class="ui negative message">{{
       errors.maxParticipants }}</div>
   </div>
-<!--
+  <!--
   <div class="field">
     <label>Datum</label>
     <input type="date" formControlName="date">
@@ -35,12 +35,13 @@
   <!--(change)="selectChangeHandler($event)"-->
   <div class="field">
     <label>Ort</label>
-    <select class="ui dropdown">
+    <select class="ui dropdown" formControlName="location_id">
       <option *ngFor="let location of locations" [value]="location.id">
       {{location.city}}</option>
     </select>
   </div>
   <br>
+
 
   <button type="submit" class="ui green button"
 [disabled]="vaccinationForm.invalid">Speichern</button>

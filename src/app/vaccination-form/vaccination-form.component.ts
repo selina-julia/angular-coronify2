@@ -1,83 +1,78 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Vaccination } from '../shared/vaccination';
-import { VaccinationChoiceService } from '../shared/vaccination-choice.service';
-import { DatePipe } from '@angular/common';
-import { LocationService } from '../shared/location.service';
-import { Location } from '../shared/location';
 import { VaccinationFactory } from '../shared/vaccination-factory';
-import { ToastrService } from 'ngx-toastr';
+import { VaccinationChoiceService } from '../shared/vaccination-choice.service';
+import { Vaccination } from '../shared/vaccination';
+import { Location } from '../shared/location';
 import { VaccinationFormErrorMessages } from './vaccination-form-error-messages';
-import moment from 'moment';
+import { LocationService } from '../shared/location.service';
 
 @Component({
   selector: 'cfy-vaccination-form',
   templateUrl: './vaccination-form.component.html'
 })
 export class VaccinationFormComponent implements OnInit {
-  id: bigint;
+  //@Input() locations: Location;
+  locations: Location[];
   vaccinationForm: FormGroup;
+  //liefer einen leeren Impftermin
+  vaccination = VaccinationFactory.empty();
   isUpdatingVaccination = false;
+  datePipeTime: string;
+  datePipeDate: string;
+  //assoziatives Array mit string als wert und anfangs ist es leer
   errors: { [key: string]: string } = {};
-  datePipeStart: string;
-  datePipeEnd: string;
-  location: Location[];
-  vaccination: Vaccination = VaccinationFactory.empty();
-  state: string = '';
 
   constructor(
     private fb: FormBuilder,
-    private vac: VaccinationChoiceService,
+    private cfy: VaccinationChoiceService,
+    private loc: LocationService,
     private route: ActivatedRoute,
-    private router: Router,
-    private datePipe: DatePipe,
-    private vacloc: LocationService,
-    private toastr: ToastrService
+    private router: Router
   ) {}
-
   ngOnInit() {
+    this.loc.getAll().subscribe(res => (this.locations = res));
+
+    this.vaccination.starttime = new Date(this.vaccination.starttime);
+
+    //is der Parameter ID bei der URL angehängt --> wird es gerade upgedated
     const id = this.route.snapshot.params['id'];
-    this.state = this.route.snapshot.params['state'];
-    if (id !== undefined) {
+    if (id) {
       this.isUpdatingVaccination = true;
-      this.vac.getSingle(id).subscribe(vaccination => {
+      this.cfy.getSingle(id).subscribe(vaccination => {
         this.vaccination = vaccination;
+        //warum 2x init = asynchron; Rest Call dauert!
         this.initVaccination();
       });
     }
-    /*this.vacloc.getLocationByState(this.state).subscribe(location => {
-      this.location = location;
-      this.initVaccination();
-    }); */
     this.initVaccination();
   }
 
   initVaccination() {
-    this.datePipeStart = this.datePipe.transform(
-      this.vaccination.starttime,
-      'HH:mm'
-    );
-    this.datePipeEnd = this.datePipe.transform(
-      this.vaccination.endtime,
-      'HH:mm'
-    );
-
     this.vaccinationForm = this.fb.group({
       id: this.vaccination.id,
-      location_id: [this.vaccination.location_id, Validators.required],
-      maxVac: [
+      //vorgefertigter Validator
+      location_id: [this.vaccination.location_id],
+      //date: [this.datePipeDate, Validators.required],
+      //starttime: [this.datePipeTime, Validators.required],
+      //endtime: [this.datePipeTime, Validators.required],
+      maxParticipants: [
         this.vaccination.maxParticipants,
-        [Validators.required, Validators.min(1)]
-      ],
-      date: [this.vaccination.date, Validators.required],
-      starttime: [this.datePipeStart, Validators.required],
-      endtime: [this.datePipeEnd, Validators.required]
+        [Validators.required, Validators.minLength(1)]
+      ]
     });
     this.vaccinationForm.statusChanges.subscribe(() => {
       this.updateErrorMessages();
     });
   }
+
+  /**Formular kann verschiedene Zustände annehmen:
+   *  valid: alles ok,
+   *  invalid: mindestens 1 feld ist nicht ok,
+   *  dirty: true = wenn der Nutzer bereits mit dem Formular argiert hat
+   *  dirty: false = noch keine Interaktion -- noch keine Fehlermeldungen
+   **/
 
   updateErrorMessages() {
     this.errors = {};
@@ -95,46 +90,28 @@ export class VaccinationFormComponent implements OnInit {
     }
   }
 
-  reloadCurrentRoute() {
-    let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
-  }
-
   submitForm() {
-    let updatedVaccination: Vaccination = VaccinationFactory.fromObject(
+    console.log(this.vaccinationForm.value);
+    console.log('hi');
+    const updatedVaccination: Vaccination = VaccinationFactory.fromObject(
       this.vaccinationForm.value
     );
-    console.log(this.vaccinationForm.value.startTime);
-    const startTimeNew = moment(
-      this.vaccinationForm.value.date +
-        ' ' +
-        this.vaccinationForm.value.startTime
-    ).toDate();
-    const endTimeNew = moment(
-      this.vaccinationForm.value.date + ' ' + this.vaccinationForm.value.endTime
-    ).toDate();
-    updatedVaccination.starttime = startTimeNew;
-    updatedVaccination.endtime = endTimeNew;
-    this.vacloc
+
+    this.loc
       .getSingle(this.vaccinationForm.controls['location_id'].value)
       .subscribe(res => {
         updatedVaccination.location = res;
       });
 
-    if (this.isUpdatingVaccination)
-      updatedVaccination.users = this.vaccination.users;
-    else updatedVaccination.users = [];
-
     if (this.isUpdatingVaccination) {
-      this.vac.update(updatedVaccination).subscribe(res => {
-        this.toastr.success('Impftermin erfolgreich geändert');
-        this.reloadCurrentRoute();
+      this.cfy.update(updatedVaccination).subscribe(res => {
+        this.router.navigate(['../../vaccinations', updatedVaccination.id], {
+          relativeTo: this.route
+        });
       });
     } else {
-      this.vac.create(updatedVaccination).subscribe(res => {
-        this.router.navigate(['../../'], { relativeTo: this.route });
+      this.cfy.create(updatedVaccination).subscribe(res => {
+        this.router.navigate(['../vaccinations'], { relativeTo: this.route });
       });
     }
   }
