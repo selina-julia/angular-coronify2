@@ -13,6 +13,7 @@ import { VaccinationDetailsComponent } from './vaccination-details/vaccination-d
 import { VaccinationSearchComponent } from './vaccination-search/vaccination-search.component';
 import { VaccinationChoiceService } from './shared/vaccination-choice.service';
 import { VaccinationFormComponent } from './vaccination-form/vaccination-form.component';
+import { UserFormComponent } from './user-form/user-form.component';
 import { LoginComponent } from './login/login.component';
 
 import { LocationListComponent } from './location-list/location-list.component';
@@ -39,6 +40,7 @@ registerLocaleData(localeDe);
     LocationListItemComponent,
     LocationDetailsComponent,
     VaccinationFormComponent,
+    UserFormComponent,
     LoginComponent
   ],
   imports: [

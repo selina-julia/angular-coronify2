@@ -1,0 +1,56 @@
+<h1>Impftermin hinzufügen</h1>
+<form class="ui large form" [formGroup]="vaccinationForm" (ngSubmit)="submitForm()">
+
+  <input type="hidden" name="id">
+
+  <div class="field">
+    <label>Vorname</label>
+    <input type="text" formControlName="firstname">
+  </div>
+
+  <!--
+  <div class="field">
+    <label>Datum</label>
+    <input type="date" formControlName="date">
+    <div *ngIf="errors.date" class="ui negative message">{{
+      errors.date }}</div>
+  </div>
+
+  -->
+
+  <div class="field">
+    <label>Datum</label>
+    <input type="date" formControlName="date">
+
+  </div>
+
+
+  <div class="field">
+    <label>Startzeit</label>
+    <input type="time" formControlName="starttime">
+
+  </div>
+
+  <div class="field">
+    <label>Endzeit</label>
+    <input type="time" formControlName="endtime">
+
+  </div>
+
+
+
+  <!--(change)="selectChangeHandler($event)"-->
+  <div class="field">
+    <label>Ort</label>
+    <select class="ui dropdown" formControlName="location_id">
+      <option *ngFor="let location of locations" [value]="location.id">
+      {{location.city}}</option>
+    </select>
+  </div>
+  <br>
+
+
+  <button type="submit" class="ui green button"
+[disabled]="vaccinationForm.invalid">Speichern</button>
+
+</form>

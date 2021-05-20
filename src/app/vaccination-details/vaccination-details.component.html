@@ -50,11 +50,17 @@
 </button>-->
 
 
-  <a *ngIf="authService.isLoggedIn()" class="ui tiny yellow labeled icon button" [routerLink]="['../../admin', vaccination?.id]">
+  <a *ngIf="authService.isLoggedIn()" class="ui tiny yellow labeled icon button"
+    [routerLink]="['../../admin', vaccination?.id]">
     <i class="write icon"></i> Impftermin bearbeiten
   </a>
   <a *ngIf="authService.isLoggedIn()" class="ui tiny red labeled icon button" (click)="removeVaccination()">
     <i class="remove icon"></i>
     Löschen
+  </a>
+
+  <a *ngIf="authService.isLoggedIn()" class="ui tiny violet labeled icon button"
+    [routerLink]="['../../admin', vaccination?.id]">
+    <i class="write icon"></i> Jetzt anmelden
   </a>
 </div>
