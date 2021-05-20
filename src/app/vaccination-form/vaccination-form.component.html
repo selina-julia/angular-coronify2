@@ -21,6 +21,14 @@
   -->
 
   <div class="field">
+    <label>Datum</label>
+    <input type="date" formControlName="date">
+    <div *ngIf="errors.date" class="ui negative message">{{
+      errors.date }}</div>
+  </div>
+
+  <!--
+  <div class="field">
     <label>Startzeit</label>
     <input type="time" formControlName="starttime">
     <div *ngIf="errors.starttime" class="ui negative message">{{
@@ -33,6 +41,7 @@
     <div *ngIf="errors.endtime" class="ui negative message">{{
       errors.endtime }}</div>
   </div>
+  -->
 
 
   <!--(change)="selectChangeHandler($event)"-->
