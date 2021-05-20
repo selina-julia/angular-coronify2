@@ -68,12 +68,10 @@ export class VaccinationFormComponent implements OnInit {
       id: this.vaccination.id,
       //vorgefertigter Validator
       location_id: [this.vaccination.location_id],
-      location: [this.vaccination.location.city],
-      //starttime: [this.datePipeStart, Validators.required],
-      //endtime: [this.datePipeEnd, Validators.required],
+      location: [this.vaccination.location],
       date: this.vaccination.date,
-      //starttime: [this.datePipeTime, Validators.required],
-      //endtime: [this.datePipeTime, Validators.required],
+      starttime: this.vaccination.starttime,
+      endtime: this.vaccination.endtime,
       maxParticipants: [
         this.vaccination.maxParticipants,
         [Validators.required, Validators.minLength(1)]
@@ -113,9 +111,17 @@ export class VaccinationFormComponent implements OnInit {
     );
     //deep copy - did not work without??
     vaccination.date = this.vaccinationForm.value.date;
-    console.log(vaccination.date);
+    vaccination.starttime = this.vaccinationForm.value.starttime;
+    vaccination.endtime = this.vaccinationForm.value.endtime;
+    console.log(vaccination);
 
-    //just copy the authors
+    console.log(vaccination.location.city);
+
+    this.loc
+      .getSingle(this.vaccinationForm.controls['location_id'].value)
+      .subscribe(res => {
+        vaccination.location = res;
+      });
 
     if (this.isUpdatingVaccination) {
       this.cfy.update(vaccination).subscribe(res => {
