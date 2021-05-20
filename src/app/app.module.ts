@@ -20,6 +20,7 @@ import { LocationListComponent } from './location-list/location-list.component';
 import { LocationListItemComponent } from './location-list-item/location-list-item.component';
 import { LocationDetailsComponent } from './location-details/location-details.component';
 import { LocationService } from './shared/location.service';
+import { UserService } from './shared/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { AuthenticationService } from './shared/authentication-service';
@@ -52,6 +53,7 @@ registerLocaleData(localeDe);
   providers: [
     VaccinationChoiceService,
     LocationService,
+    UserService,
     AuthenticationService,
     DatePipe,
     { provide: LOCALE_ID, useValue: 'de' },

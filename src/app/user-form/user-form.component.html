@@ -1,5 +1,5 @@
 <h1>Impftermin hinzufügen</h1>
-<form class="ui large form" [formGroup]="vaccinationForm" (ngSubmit)="submitForm()">
+<form class="ui large form" [formGroup]="userForm" (ngSubmit)="addUserToVaccination()">
 
   <input type="hidden" name="id">
 
@@ -51,6 +51,6 @@
 
 
   <button type="submit" class="ui green button"
-[disabled]="vaccinationForm.invalid">Speichern</button>
+[disabled]="userForm.invalid">Speichern</button>
 
 </form>

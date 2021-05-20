@@ -7,6 +7,7 @@ import { LocationListComponent } from './location-list/location-list.component';
 import { VaccinationFormComponent } from './vaccination-form/vaccination-form.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { UserFormComponent } from './user-form/user-form.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'locations', component: LocationListComponent },
   { path: 'locations/:id', component: LocationDetailsComponent },
   { path: 'admin', component: VaccinationFormComponent },
+  { path: 'user', component: UserFormComponent },
   { path: 'admin/:id', component: VaccinationFormComponent },
   { path: 'login', component: LoginComponent }
 ];

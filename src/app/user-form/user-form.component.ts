@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VaccinationFactory } from '../shared/vaccination-factory';
-import { VaccinationChoiceService } from '../shared/vaccination-choice.service';
-import { Vaccination } from '../shared/vaccination';
+import { UserFactory } from '../shared/user-factory';
+import { UserService } from '../shared/user.service';
 import { User } from '../shared/user';
 import { Location } from '../shared/location';
 import { LocationService } from '../shared/location.service';
@@ -19,11 +18,10 @@ export class UserFormComponent implements OnInit {
   //@Input() locations: Location;
   id: bigint;
   locations: Location[];
-  user: User[];
-  vaccinationForm: FormGroup;
+  userForm: FormGroup;
   //liefer einen leeren Impftermin
-  vaccination = VaccinationFactory.empty();
-  isUpdatingVaccination = false;
+  user = UserFactory.empty();
+  isUpdatingUser = false;
   datePipeStart: string;
   datePipeEnd: string;
   //assoziatives Array mit string als wert und anfangs ist es leer
@@ -31,7 +29,7 @@ export class UserFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private cfy: VaccinationChoiceService,
+    private cfy: UserService,
     private loc: LocationService,
     private route: ActivatedRoute,
     private router: Router,
@@ -41,45 +39,30 @@ export class UserFormComponent implements OnInit {
   ngOnInit() {
     this.loc.getAll().subscribe(res => (this.locations = res));
 
-    // this.vaccination.starttime = new Date(this.vaccination.starttime);
+    // this.user.starttime = new Date(this.user.starttime);
 
     const id = this.route.snapshot.params['id'];
     if (id) {
-      this.isUpdatingVaccination = true;
-      this.cfy.getSingle(id).subscribe(vaccination => {
-        this.vaccination = vaccination;
+      this.isUpdatingUser = true;
+      this.cfy.getSingleUser(id).subscribe(user => {
+        this.user = user;
         //warum 2x init = asynchron; Rest Call dauert!
-        this.initVaccination();
+        this.initUser();
       });
     }
-    this.initVaccination();
+    this.initUser();
   }
 
-  initVaccination() {
-    /*this.datePipeStart = this.datePipe.transform(
-      this.vaccination.starttime,
-      'HH:mm:ss'
-    );
-    this.datePipeEnd = this.datePipe.transform(
-      this.vaccination.endtime,
-      'HH:mm:ss'
-    ); */
-
-    this.vaccinationForm = this.fb.group({
-      id: this.vaccination.id,
-      
-      //vorgefertigter Validator
-      location_id: [this.vaccination.location_id],
-      location: [this.vaccination.location],
-      date: this.vaccination.date,
-      starttime: this.vaccination.starttime,
-      endtime: this.vaccination.endtime,
-      maxParticipants: [
-        this.vaccination.maxParticipants,
-        [Validators.required, Validators.minLength(1)]
-      ]
+  initUser() {
+    this.userForm = this.fb.group({
+      id: this.user.id,
+      firstname: this.user.firstname,
+      lastname: this.user.lastname,
+      ssn: this.user.ssn,
+      email: this.user.email,
+      birthdate: this.user.birthdate
     });
-    /*this.vaccinationForm.statusChanges.subscribe(() => {
+    /*this.userForm.statusChanges.subscribe(() => {
       this.updateErrorMessages();
     });*/
   }
@@ -93,8 +76,8 @@ export class UserFormComponent implements OnInit {
 
   /*updateErrorMessages() {
     this.errors = {};
-    for (const message of VaccinationFormErrorMessages) {
-      const control = this.vaccinationForm.get(message.forControl);
+    for (const message of UserFormErrorMessages) {
+      const control = this.userForm.get(message.forControl);
       if (
         control &&
         control.dirty &&
@@ -107,36 +90,12 @@ export class UserFormComponent implements OnInit {
     }
   }*/
 
-  submitForm() {
-    const vaccination: Vaccination = VaccinationFactory.fromObject(
-      this.vaccinationForm.value
-    );
-    //deep copy - did not work without??
-    vaccination.date = this.vaccinationForm.value.date;
-    vaccination.starttime = this.vaccinationForm.value.starttime;
-    vaccination.endtime = this.vaccinationForm.value.endtime;
-    console.log(vaccination);
+  addUserToVaccination() {
+    if (confirm('Willst du dich wirklich zu diesen Impftermin anmelden?')) {
+      this.user.vaccination_id = this.user.id;
 
-    console.log(vaccination.location.city);
-
-    this.loc
-      .getSingle(this.vaccinationForm.controls['location_id'].value)
-      .subscribe(res => {
-        vaccination.location = res;
-      });
-
-    if (this.isUpdatingVaccination) {
-      this.cfy.update(vaccination).subscribe(res => {
-        this.router.navigate(['../../vaccinations', vaccination.id], {
-          relativeTo: this.route
-        });
-      });
-    } else {
-      console.log(vaccination);
-      this.cfy.create(vaccination).subscribe(res => {
-        this.vaccination = VaccinationFactory.empty();
-        this.vaccinationForm.reset(VaccinationFactory.empty());
-        this.router.navigate(['../vaccinations'], { relativeTo: this.route });
+      this.cfy.saveUser(this.user).subscribe(res => {
+        this.router.navigate(['../../'], { relativeTo: this.route });
       });
     }
   }
