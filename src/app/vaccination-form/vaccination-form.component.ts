@@ -9,6 +9,7 @@ import { VaccinationFormErrorMessages } from './vaccination-form-error-messages'
 import { LocationService } from '../shared/location.service';
 import moment from 'moment';
 import { DatePipe } from '@angular/common';
+import { FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'cfy-vaccination-form',
@@ -35,6 +36,7 @@ export class VaccinationFormComponent implements OnInit {
     private router: Router,
     private datePipe: DatePipe
   ) {}
+
   ngOnInit() {
     this.loc.getAll().subscribe(res => (this.locations = res));
 
@@ -66,6 +68,7 @@ export class VaccinationFormComponent implements OnInit {
       id: this.vaccination.id,
       //vorgefertigter Validator
       location_id: [this.vaccination.location_id],
+      location: [this.vaccination.location.city],
       //starttime: [this.datePipeStart, Validators.required],
       //endtime: [this.datePipeEnd, Validators.required],
       date: this.vaccination.date,
@@ -105,38 +108,26 @@ export class VaccinationFormComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.vaccinationForm.value);
-    console.log('hi');
-    const updatedVaccination: Vaccination = VaccinationFactory.fromObject(
+    const vaccination: Vaccination = VaccinationFactory.fromObject(
       this.vaccinationForm.value
     );
-    console.log(this.vaccinationForm.value);
+    //deep copy - did not work without??
+    vaccination.date = this.vaccinationForm.value.date;
+    console.log(vaccination.date);
 
-    /*const startTimeNew = moment(
-      this.vaccinationForm.value.date +
-        ' ' +
-        this.vaccinationForm.value.starttime
-    ).toDate();
-    const endTimeNew = moment(
-      this.vaccinationForm.value.date + ' ' + this.vaccinationForm.value.endtime
-    ).toDate(); */
-    //updatedVaccination.starttime = startTimeNew;
-    //updatedVaccination.endtime = endTimeNew;
-
-    this.loc
-      .getSingle(this.vaccinationForm.controls['location_id'].value)
-      .subscribe(res => {
-        updatedVaccination.location = res;
-      });
+    //just copy the authors
 
     if (this.isUpdatingVaccination) {
-      this.cfy.update(updatedVaccination).subscribe(res => {
-        this.router.navigate(['../../vaccinations', updatedVaccination.id], {
+      this.cfy.update(vaccination).subscribe(res => {
+        this.router.navigate(['../../vaccinations', vaccination.id], {
           relativeTo: this.route
         });
       });
     } else {
-      this.cfy.create(updatedVaccination).subscribe(res => {
+      console.log(vaccination);
+      this.cfy.create(vaccination).subscribe(res => {
+        this.vaccination = VaccinationFactory.empty();
+        this.vaccinationForm.reset(VaccinationFactory.empty());
         this.router.navigate(['../vaccinations'], { relativeTo: this.route });
       });
     }

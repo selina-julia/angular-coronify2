@@ -15,11 +15,11 @@ export const VaccinationFormErrorMessages = [
     'maxParticipants',
     'min',
     'Die Anzahl der Teilnehmer:innen muss positiv sein'
-  ),
-  new ErrorMessage('date', 'required', 'Es muss ein Datum angegeben werden'),
+  )
+  /*new ErrorMessage('date', 'required', 'Es muss ein Datum angegeben werden'),
   new ErrorMessage(
     'starttime',
     'required',
     'Es muss eine Zeit angegeben werden'
-  )
+  )*/
 ];
