@@ -5,6 +5,7 @@ import { Location } from '../shared/location';
 import { VaccinationChoiceService } from '../shared/vaccination-choice.service';
 import { LocationService } from '../shared/location.service';
 import { VaccinationFactory } from '../shared/vaccination-factory';
+import { AuthenticationService } from '../shared/authentication-service';
 
 @Component({
   selector: 'is-vaccination-details',
@@ -19,7 +20,8 @@ export class VaccinationDetailsComponent implements OnInit {
     private is: VaccinationChoiceService,
     private is_loc: LocationService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public authService: AuthenticationService
   ) {}
 
   //ngOnInit() {}

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Vaccination } from './shared/vaccination';
 import { Location } from './shared/location';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from './shared/authentication-service';
 
 @Component({
   selector: 'bs-root',
@@ -14,7 +15,11 @@ export class AppComponent {
   vaccination: Vaccination;
   location: Location;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private authenticationService: AuthenticationService
+  ) {}
 
   showList() {
     this.listOn = true;
@@ -24,6 +29,18 @@ export class AppComponent {
     this.vaccination = vaccination;
     this.listOn = false;
     this.detailsOn = true;
+  }
+
+  isLoggedIn() {
+    return this.authenticationService.isLoggedIn();
+  }
+
+  getLoginLabel() {
+    if (this.isLoggedIn()) {
+      return 'Logout';
+    } else {
+      return 'Login';
+    }
   }
 
   vaccinationSelected(vaccination: Vaccination) {

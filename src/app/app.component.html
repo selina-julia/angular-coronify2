@@ -20,6 +20,8 @@
           <a routerLink="locations" routerLinkActive="active"
             class="item"><i class="map marker alternate icon"></i>Impforte</a>
           <a routerLink="admin" routerLinkActive="active" class="item"><i class="lock icon"></i>Administration</a>
+          <a *ngIf="isLoggedIn()" routerLink="admin" routerLinkActive="active" class="item">Administration</a>
+          <a routerLink="login" routerLinkActive="active" class="item">{{getLoginLabel()}}</a>
         </div>
       </div>
     </div>

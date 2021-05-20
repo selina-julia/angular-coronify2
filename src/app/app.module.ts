@@ -13,6 +13,7 @@ import { VaccinationDetailsComponent } from './vaccination-details/vaccination-d
 import { VaccinationSearchComponent } from './vaccination-search/vaccination-search.component';
 import { VaccinationChoiceService } from './shared/vaccination-choice.service';
 import { VaccinationFormComponent } from './vaccination-form/vaccination-form.component';
+import { LoginComponent } from './login/login.component';
 
 import { LocationListComponent } from './location-list/location-list.component';
 import { LocationListItemComponent } from './location-list-item/location-list-item.component';
@@ -20,6 +21,7 @@ import { LocationDetailsComponent } from './location-details/location-details.co
 import { LocationService } from './shared/location.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { AuthenticationService } from './shared/authentication-service';
 
 registerLocaleData(localeDe);
 
@@ -33,7 +35,8 @@ registerLocaleData(localeDe);
     LocationListComponent,
     LocationListItemComponent,
     LocationDetailsComponent,
-    VaccinationFormComponent
+    VaccinationFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ registerLocaleData(localeDe);
   providers: [
     VaccinationChoiceService,
     LocationService,
+    AuthenticationService,
     DatePipe,
     { provide: LOCALE_ID, useValue: 'de' }
   ],
