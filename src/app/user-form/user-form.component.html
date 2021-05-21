@@ -1,4 +1,9 @@
-<h1>Impftermin hinzufügen</h1>
+<h1>Anmeldung zum Impftermin</h1>
+<h3>{{vaccination?.location.name}}</h3>
+<p>Dieser Impftermin findet bei der Adresse <b>{{vaccination?.location.address}}, {{vaccination?.location.postalcode}}
+  {{vaccination?.location.city}}</b> am <b>{{vaccination?.date | date:"dd.MM.yyyy"}}</b> zwischen <b>{{vaccination?.starttime | date:"HH:mm"}} und
+  {{vaccination?.endtime | date:"HH:mm"}}</b> statt.</p>
+
 <form class="ui large form" [formGroup]="userForm" (ngSubmit)="addUserToVaccination()">
 
   <input type="hidden" name="id">
@@ -6,6 +11,26 @@
   <div class="field">
     <label>Vorname</label>
     <input type="text" formControlName="firstname">
+  </div>
+
+  <div class="field">
+    <label>Nachname</label>
+    <input type="text" formControlName="lastname">
+  </div>
+
+  <div class="field">
+    <label>Sozialversicherungsnummer</label>
+    <input type="number" formControlName="ssn">
+  </div>
+
+  <div class="field">
+    <label>Geburtsdatum</label>
+    <input type="date" formControlName="birthdate">
+  </div>
+
+  <div class="field">
+    <label>E-Mail</label>
+    <input type="email" formControlName="email">
   </div>
 
   <!--
@@ -16,41 +41,18 @@
       errors.date }}</div>
   </div>
 
+      id: this.user.id,
+      firstname: this.user.firstname,
+      lastname: this.user.lastname,
+      ssn: this.user.ssn,
+      email: this.user.email,
+      birthdate: this.user.birthdate
   -->
 
-  <div class="field">
-    <label>Datum</label>
-    <input type="date" formControlName="date">
 
-  </div>
-
-
-  <div class="field">
-    <label>Startzeit</label>
-    <input type="time" formControlName="starttime">
-
-  </div>
-
-  <div class="field">
-    <label>Endzeit</label>
-    <input type="time" formControlName="endtime">
-
-  </div>
-
-
-
-  <!--(change)="selectChangeHandler($event)"-->
-  <div class="field">
-    <label>Ort</label>
-    <select class="ui dropdown" formControlName="location_id">
-      <option *ngFor="let location of locations" [value]="location.id">
-      {{location.city}}</option>
-    </select>
-  </div>
-  <br>
 
 
   <button type="submit" class="ui green button"
-[disabled]="userForm.invalid">Speichern</button>
+>Speichern</button>
 
 </form>

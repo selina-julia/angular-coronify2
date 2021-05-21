@@ -26,7 +26,7 @@ export class UserService {
 
   getSingleUserById(id: number): Observable<User> {
     return this.http
-      .get<User>(`${this.api}/users/id/${id}`)
+      .get<User>(`${this.api}/user/${id}`)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
