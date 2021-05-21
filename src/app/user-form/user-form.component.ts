@@ -32,7 +32,7 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit() {
     this.userForm = this.fb.group({
-      firstname: ['', [Validators.required]],
+      firstname: this.activeUser.firstname,
       lastname: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       birthdate: ['', [Validators.required]],
@@ -59,6 +59,7 @@ export class UserFormComponent implements OnInit {
     if (confirm('Willst du dich wirklich zu diesen Impftermin anmelden?')) {
       this.activeUser.vaccination_id = this.vaccination.id;
       this.activeUser.gender = this.selectedGender;
+      console.log(this.activeUser);
 
       this.us.saveUser(this.activeUser).subscribe(res => {
         this.router.navigate(['../'], { relativeTo: this.route });
