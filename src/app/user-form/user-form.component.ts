@@ -67,7 +67,12 @@ export class UserFormComponent implements OnInit {
       lastname: this.user.lastname,
       birthdate: this.user.birthdate,
       ssn: this.user.ssn,
-      email: this.user.email
+      email: this.user.email,
+      gender: 'm',
+      hasVaccination: 0,
+      isAdmin: 0,
+      password: 'secret',
+      phone: '786858'
     });
     /*this.userForm.statusChanges.subscribe(() => {
       this.updateErrorMessages();
@@ -104,8 +109,12 @@ export class UserFormComponent implements OnInit {
 
     console.log(user.firstname);
 
+    console.log(this.isUpdatingUser);
+
+    user.birthdate = this.userForm.value.birthdate;
+
     if (this.isUpdatingUser) {
-      console.log("updating");
+      console.log('updating');
       this.us.update(user).subscribe(res => {
         this.router.navigate(['../../users', user.id], {
           relativeTo: this.route
@@ -113,11 +122,20 @@ export class UserFormComponent implements OnInit {
       });
     } else {
       console.log(user);
+      console.log('new user');
       this.us.create(user).subscribe(res => {
-        this.user = UserFactory.empty();
-        this.userForm.reset(UserFactory.empty());
-        this.router.navigate(['../user'], { relativeTo: this.route });
-      });
+        console.log('user created');
+        //this.user = UserFactory.empty();
+        //this.userForm.reset(UserFactory.empty());
+        /*this.router.navigate(
+          [
+            '../../vaccinations',
+            this.route.snapshot.params,
+            ['vaccination_id']
+          ],
+          { relativeTo: this.route }
+        ); */
+      }); 
     }
   }
 }

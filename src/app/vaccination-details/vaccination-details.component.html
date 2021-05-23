@@ -45,7 +45,7 @@
                     <span *ngIf="user.hasVaccination == false; else alreadyVaccinated">
                       <input type="checkbox">
                     </span>
-                    <ng-template #alreadyVaccinated><input type="checkbox" checked></ng-template>
+                    <ng-template #alreadyVaccinated><input type="checkbox" disabled="disabled" checked></ng-template>
                   </td>
                 </tr>
               </tbody>

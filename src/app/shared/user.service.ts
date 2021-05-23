@@ -33,7 +33,7 @@ export class UserService {
 
   create(user: User): Observable<any> {
     return this.http
-      .put(`${this.api}/user/${user.id}`, user)
+      .post(`${this.api}/user/save`, user)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }

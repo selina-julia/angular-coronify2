@@ -15,13 +15,13 @@
       <div class="left-column">
         <p class="style-h2">Coronify.</p>
         <div class="ui vertical fluid tabular menu">
-          <a routerLink="home" routerLinkActive="active" class="item"><i class="telegram plane icon"></i>Home</a>
+          <a routerLink="home" routerLinkActive="active" class="item"><i class="th icon"></i>Home</a>
           <a routerLink="vaccinations" routerLinkActive="active" class="item"><i class="syringe icon"></i>Impfungen</a>
           <a routerLink="locations" routerLinkActive="active"
             class="item"><i class="map marker alternate icon"></i>Impforte</a>
           <a *ngIf="isLoggedIn()" routerLink="admin" routerLinkActive="active"
             class="item"><i class="lock icon"></i>Administration</a>
-          <a routerLink="login" routerLinkActive="active" class="item">{{getLoginLabel()}}</a>
+          <a routerLink="login" routerLinkActive="active" class="item"><i class="reply icon"></i>{{getLoginLabel()}}</a>
         </div>
       </div>
     </div>
