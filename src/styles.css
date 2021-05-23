@@ -2,7 +2,7 @@
 
 /* variables */
 :root {
-  --main: blue;
+  --main: #5628ee;
   --white: #ffffff;
   --bg-color: #eff2f8;
 }
@@ -120,6 +120,10 @@ h3,
   border: 0 !important;
 }
 
+.ui.vertical.tabular.menu .item {
+  padding: 8% 0;
+}
+
 .ui.vertical.menu .item > i.icon {
   float: left !important;
   margin-left: 0 !important;
@@ -142,4 +146,13 @@ h3,
   justify-content: center;
   align-items: center;
   margin-right: 10px;
+}
+
+.vaccination-info {
+  display: flex;
+  margin: 5% 0;
+}
+
+.vaccination-info .first {
+  margin-right: 5%;
 }

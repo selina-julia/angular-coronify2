@@ -2,15 +2,24 @@
   <div class="ui grid" *ngIf="vaccination" class="item cfy-vaccination-details">
     <div class="twelve wide column">
       <h1 class="ui header">Impfung am {{ vaccination.date | date:'dd.MM.yyyy' }}</h1>
-      <p class="description"><i class="clock outline icon"></i> {{ vaccination.starttime }} - {{ vaccination.endtime
-        }}</p>
-      <p> <i class="user outline icon"></i> {{vaccination.users.length}} / {{vaccination.maxParticipants}}</p>
 
-      <h3>Standort</h3>
-      <div>{{vaccination?.location.name}} </div>
-      <div>{{vaccination?.location.address}}</div>
-      <div>{{vaccination?.location.postalcode}} {{vaccination?.location.city}}</div>
-      <br>
+      <div class="vaccination-info">
+        <div class="first">
+          <p class="description"><i class="clock outline icon"></i> {{ vaccination.starttime }} - {{ vaccination.endtime
+            }}</p>
+          <p> <i class="user outline icon"></i> {{vaccination.users.length}} / {{vaccination.maxParticipants}}</p>
+          <p>Noch {{vaccination.maxParticipants-vaccination.users.length}} Plätze verfügbar!</p>
+
+        </div>
+
+        <div>
+          <i class="map outline icon"></i>
+          <div>{{vaccination?.location.name}} </div>
+          <div>{{vaccination?.location.address}}</div>
+          <div>{{vaccination?.location.postalcode}} {{vaccination?.location.city}}</div>
+        </div>
+
+      </div>
 
 
 
@@ -28,7 +37,7 @@
                   <th>Geburtsdatum</th>
                   <th>Telefon</th>
                   <th>E-Mail</th>
-                  <th *ngIf="user?.isAdmin">Impfstatus</th>
+                  <th *ngIf="user?.isAdmin">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -39,11 +48,17 @@
                   <td data-label="Geburtsdatum">{{user.birthdate | date:'dd.MM.yyyy'}}</td>
                   <td data-label="Telefon">{{user.phone}}</td>
                   <td data-label="E-Mail">{{user.email}}</td>
-                  <td data-label="Impfstatus">
+                  <td data-label="Status">
                     <span *ngIf="user.hasVaccination == false; else alreadyVaccinated">
                       <input type="checkbox">
                     </span>
                     <ng-template #alreadyVaccinated><input type="checkbox" disabled="disabled" checked></ng-template>
+                  </td>
+                  <td>
+                    <a [routerLink]="['../../user', user?.id]"><i class="pencil alternate icon"></i>
+                      {{user.id}}</a>
+                    <a (click)="removeUser()"><i class="trash alternate icon"></i></a>
+
                   </td>
                 </tr>
               </tbody>
@@ -55,7 +70,7 @@
         <ng-template #other_content>Noch keine Anmeldungen zu diesem Termin!</ng-template>
       </div>
 
-      <p>Noch {{vaccination.maxParticipants-vaccination.users.length}} Plätze verfügbar!</p>
+
 
       <!--<span> Noch {{vaccination.users.length}} verfügbar</span>-->
     </div>

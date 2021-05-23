@@ -45,6 +45,13 @@ export class UserService {
       .pipe(catchError(this.errorHandler));
   }
 
+  remove(id: number): Observable<any> {
+    return this.http
+      .delete(`${this.api}/user/${id}`)
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler));
+  }
+
   private errorHandler(error: Error | any) {
     return throwError(error);
   }

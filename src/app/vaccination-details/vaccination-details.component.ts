@@ -55,4 +55,11 @@ export class VaccinationDetailsComponent implements OnInit {
     }
   }
 
+  removeUser() {
+    if (confirm('Wollen Sie diesen User wirklich löschen?')) {
+      this.is_user.remove(this.user.id).subscribe(res => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
+    }
+  }
 }

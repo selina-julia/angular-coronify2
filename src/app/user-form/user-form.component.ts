@@ -42,11 +42,15 @@ export class UserFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loc.getAll().subscribe(res => (this.locations = res));
+    //this.loc.getAll().subscribe(res => (this.locations = res));
 
     // this.vaccination.starttime = new Date(this.vaccination.starttime);
 
     const id = this.route.snapshot.params['id'];
+
+    console.log(this.route.snapshot);
+
+    console.log(id);
     if (id) {
       this.isUpdatingUser = true;
       this.us.getSingleUserById(id).subscribe(user => {
@@ -135,7 +139,7 @@ export class UserFormComponent implements OnInit {
           ],
           { relativeTo: this.route }
         ); */
-      }); 
+      });
     }
   }
 }
