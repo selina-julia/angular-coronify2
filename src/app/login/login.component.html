@@ -1,6 +1,8 @@
 <div *ngIf="!isLoggedIn()">
   <div class="ui grid center">
     <div class="ten wide column">
+      <img src="https://storyset.com/illustration/login/cuate#5628EEFF&hide=&hide=complete" width="300" height="300">
+
       <h1>Login</h1>
       <form class="ui large form" [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="field">
