@@ -5,32 +5,43 @@ import { User } from './shared/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from './shared/authentication-service';
 import { UserService } from './shared/user.service';
+import { OnChanges, Input } from '@angular/core';
 
 @Component({
   selector: 'bs-root',
   templateUrl: './app.component.html',
   styles: []
 })
-export class AppComponent {
+export class AppComponent implements OnChanges {
   listOn = true;
   detailsOn = false;
   vaccination: Vaccination;
   location: Location;
   user: User;
+  loading = false;
+  users: User[];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
-    private is_user: UserService
+    private is_user: UserService,
+    private userService: UserService
   ) {}
+
+  ngOnChanges() {
+    if (this.authenticationService.isLoggedIn()) {
+      this.is_user
+        .getSingleUserById(localStorage.userId)
+        .subscribe(res => (this.user = res));
+    }
+  }
 
   ngOnInit() {
     if (this.authenticationService.isLoggedIn()) {
       this.is_user
         .getSingleUserById(localStorage.userId)
         .subscribe(res => (this.user = res));
-
     }
   }
 

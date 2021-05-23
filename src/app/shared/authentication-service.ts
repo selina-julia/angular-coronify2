@@ -24,6 +24,7 @@ export class AuthenticationService {
   public getCurrentUserId() {
     return Number.parseInt(localStorage.getItem('userId'));
   }
+
   public setLocalStorage(token: string) {
     //console.log('Storing token');
     //console.log(jwt_decode(token));

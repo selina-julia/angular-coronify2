@@ -2,7 +2,7 @@
 
 /* variables */
 :root {
-  --main: #6a75ca;
+  --main: blue;
   --white: #ffffff;
   --bg-color: #eff2f8;
 }
@@ -63,7 +63,7 @@ h3,
 .middle-column {
   background: var(--bg-color);
   padding-top: 2%;
-  height: 100vh;
+  min-height: 100vh;
   padding-left: 5%;
   padding-right: 5%;
 }
