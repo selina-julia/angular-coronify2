@@ -29,6 +29,7 @@ h1,
   font-family: 'Poppins', sans-serif !important;
   font-weight: 700 !important;
   font-size: 35px !important;
+  margin-bottom: 5% !important;
 }
 
 h2,
@@ -169,4 +170,13 @@ h3,
 
 .back-arrow:hover i {
   color: #5628ee;
+}
+
+.vaccination-registration-info {
+  margin-left: 15%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
 }

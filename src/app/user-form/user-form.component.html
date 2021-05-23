@@ -2,72 +2,72 @@
 
 
 <div class="ui grid" *ngIf="vaccination">
-  <div class="eleven wide column">
+  <div class="twelve wide column">
     <form class="ui large form" [formGroup]="userForm" (ngSubmit)="addUserToVaccination()">
 
-  <input type="hidden" name="id">
+      <input type="hidden" name="id">
 
-  <div class="two fields">
-    <div class="field">
-      <label>Vorname</label>
-      <input type="text" formControlName="firstname">
-    </div>
+      <div class="two fields">
+        <div class="field">
+          <label>Vorname</label>
+          <input type="text" formControlName="firstname">
+        </div>
 
-    <div class="field">
-      <label>Nachname</label>
-      <input type="text" formControlName="lastname">
-    </div>
+        <div class="field">
+          <label>Nachname</label>
+          <input type="text" formControlName="lastname">
+        </div>
 
-  </div>
+      </div>
 
-  <div class="three fields">
-    <div class="field">
-      <label>Geschlecht</label>
+      <div class="three fields">
+        <div class="field">
+          <label>Geschlecht</label>
 
-      <select formControlName="gender">
+          <select formControlName="gender">
       <option value="m">männlich</option>
       <option value="f">weiblich</option>
     </select>
-    </div>
+        </div>
 
-    <div class="field">
-      <label>Sozialversicherungsnummer</label>
-      <input type="number" formControlName="ssn">
-    </div>
+        <div class="field">
+          <label>Sozialversicherungsnummer</label>
+          <input type="number" formControlName="ssn">
+        </div>
 
-    <div class="field">
-      <label>Geburtsdatum</label>
-      <input type="date" formControlName="birthdate">
-    </div>
-  </div>
+        <div class="field">
+          <label>Geburtsdatum</label>
+          <input type="date" formControlName="birthdate">
+        </div>
+      </div>
 
-  <div class="two fields">
-    <div class="field">
-      <label>E-Mail</label>
-      <input type="email" formControlName="email">
-    </div>
+      <div class="two fields">
+        <div class="field">
+          <label>E-Mail</label>
+          <input type="email" formControlName="email">
+        </div>
 
-    <div class="field">
-      <label>Telefon</label>
-      <input type="text" formControlName="phone">
-    </div>
-  </div>
-
-
+        <div class="field">
+          <label>Telefon</label>
+          <input type="text" formControlName="phone">
+        </div>
+      </div>
 
 
 
 
-  <div *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="field">
-    <label>Bereits geimpft</label>
 
-    <select formControlName="hasVaccination">
+
+      <div *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="field">
+        <label>Bereits geimpft</label>
+
+        <select formControlName="hasVaccination">
       <option value="1">ja</option>
       <option value="0">nein</option>
     </select>
-  </div>
+      </div>
 
-  <!--
+      <!--
   <div class="field">
     <label>Datum</label>
     <input type="date" formControlName="date">
@@ -84,18 +84,16 @@
   -->
 
 
+      <button type="submit" class="ui cfy-button crayola">Jetzt anmelden</button>
 
-
-  <button type="submit" class="ui cfy-button crayola"
->Jetzt anmelden</button>
-
-</form>
+    </form>
   </div>
   <div class="four wide column">
-    <h3>{{vaccination?.location.name}}</h3>
-    <p>Dieser Impftermin findet bei der Adresse <b>{{vaccination?.location.address}}, {{vaccination?.location.postalcode}}
-  {{vaccination?.location.city}}</b> am <b>{{vaccination?.date | date:"dd.MM.yyyy"}}</b> zwischen <b>{{vaccination?.starttime | date:"HH:mm"}} und
-  {{vaccination?.endtime | date:"HH:mm"}}</b> statt.</p>
+    <div class="vaccination-registration-info">
+      <h3>{{vaccination?.location.name}}</h3>
+      <p>Dieser Impftermin findet bei der Adresse <b>{{vaccination?.location.address}}, {{vaccination?.location.postalcode}}
+      {{vaccination?.location.city}}</b> am <b>{{vaccination?.date | date:"dd.MM.yyyy"}}</b> zwischen <b>{{vaccination?.starttime | date:"HH:mm"}} und
+      {{vaccination?.endtime | date:"HH:mm"}}</b> statt.</p>
+    </div>
   </div>
 </div>
-
