@@ -75,9 +75,11 @@ export class UserFormComponent implements OnInit {
       gender: 'm',
       hasVaccination: 0,
       isAdmin: 0,
-      password: 'secret',
+      password: '$2y$10$5Wep7W2vPo4EWYc.1wbJte3ChN5jLmEkL52bTOt51/EdKM2F8UH5.',
       phone: '786858'
     });
+
+    console.log(this.user.isAdmin);
     /*this.userForm.statusChanges.subscribe(() => {
       this.updateErrorMessages();
     });*/
@@ -113,14 +115,16 @@ export class UserFormComponent implements OnInit {
 
     console.log(user.firstname);
 
-    console.log(this.isUpdatingUser);
+    console.log(this.user.isAdmin);
 
     user.birthdate = this.userForm.value.birthdate;
+    user.vaccination_id = this.user.vaccination_id;
+    user.isAdmin = this.user.isAdmin;
 
     if (this.isUpdatingUser) {
       console.log('updating');
       this.us.update(user).subscribe(res => {
-        this.router.navigate(['../../users', user.id], {
+        this.router.navigate(['../../../vaccinations', user.vaccination_id], {
           relativeTo: this.route
         });
       });

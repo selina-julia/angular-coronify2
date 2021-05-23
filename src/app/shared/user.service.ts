@@ -40,7 +40,7 @@ export class UserService {
 
   update(user: User): Observable<any> {
     return this.http
-      .put(`${this.api}/users/${user.id}`, user)
+      .put(`${this.api}/user/${user.id}`, user)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }

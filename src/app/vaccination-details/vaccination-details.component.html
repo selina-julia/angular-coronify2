@@ -55,7 +55,7 @@
                     <ng-template #alreadyVaccinated><input type="checkbox" disabled="disabled" checked></ng-template>
                   </td>
                   <td>
-                    <a [routerLink]="['../../user', user?.id]"><i class="pencil alternate icon"></i>
+                    <a [routerLink]="['../../user/edit', user?.id]"><i class="pencil alternate icon"></i>
                       {{user.id}}</a>
                     <a (click)="removeUser()"><i class="trash alternate icon"></i></a>
 
