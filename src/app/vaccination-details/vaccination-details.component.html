@@ -12,10 +12,13 @@
       <div>{{vaccination?.location.postalcode}} {{vaccination?.location.city}}</div>
       <br>
 
-      <div *ngIf="vaccination.users.length != 0; else other_content">
-        <div *ngFor="let user of vaccination.users; last as l">
-          <div *ngIf="user?.isAdmin == true">
+      <div *ngIf="user?.isAdmin == true">
+        hi, {{user.firstname}}
+      </div>
 
+      <div *ngIf="user?.isAdmin == true">
+        <div *ngIf="vaccination.users.length != 0; else other_content">
+          <div>
             <h4 class="ui header">Angemeldete User:</h4>
 
             <table class="ui celled table">
@@ -27,6 +30,7 @@
                   <th>Geburtsdatum</th>
                   <th>Telefon</th>
                   <th>E-Mail</th>
+                  <th *ngIf="user?.isAdmin">Impfstatus</th>
                 </tr>
               </thead>
               <tbody>
@@ -37,6 +41,12 @@
                   <td data-label="Geburtsdatum">{{user.birthdate | date:'dd.MM.yyyy'}}</td>
                   <td data-label="Telefon">{{user.phone}}</td>
                   <td data-label="E-Mail">{{user.email}}</td>
+                  <td data-label="Impfstatus">
+                    <span *ngIf="user.hasVaccination == false; else alreadyVaccinated">
+                      <input type="checkbox">
+                    </span>
+                    <ng-template #alreadyVaccinated><input type="checkbox" checked></ng-template>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -44,8 +54,11 @@
           </div>
 
         </div>
+        <ng-template #other_content>Noch keine Anmeldungen zu diesem Termin!</ng-template>
       </div>
-      <ng-template #other_content>Noch keine Anmeldungen zu diesem Termin!</ng-template>
+
+      <p>Noch {{vaccination.maxParticipants-vaccination.users.length}} Plätze verfügbar!</p>
+
       <!--<span> Noch {{vaccination.users.length}} verfügbar</span>-->
     </div>
   </div> <br> <br>
@@ -58,11 +71,12 @@
 </button>-->
 
 
-  <a *ngIf="authService.isLoggedIn()" class="ui tiny yellow labeled icon button"
+  <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui tiny yellow labeled icon button"
     [routerLink]="['../../admin', vaccination?.id]">
     <i class="write icon"></i> Impftermin bearbeiten
   </a>
-  <a *ngIf="authService.isLoggedIn()" class="ui tiny red labeled icon button" (click)="removeVaccination()">
+  <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui tiny red labeled icon button"
+    (click)="removeVaccination()">
     <i class="remove icon"></i>
     Löschen
   </a>

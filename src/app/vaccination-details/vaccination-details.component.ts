@@ -40,17 +40,11 @@ export class VaccinationDetailsComponent implements OnInit {
 
     if (this.authService.isLoggedIn()) {
       this.is_user
-        .getSingleUserById(this.authService.getCurrentUserId())
-        .subscribe(res => {
-          this.user = res;
-        });
+        .getSingleUserById(localStorage.userId)
+        .subscribe(res => (this.user = res));
     }
 
-    this.is_user
-      .getSingleUserById(localStorage.userId)
-      .subscribe(res => (this.user = res));
-
-    console.log(this.is_user);
+    console.log(localStorage.userId);
   }
 
   removeVaccination() {
@@ -60,4 +54,5 @@ export class VaccinationDetailsComponent implements OnInit {
       });
     }
   }
+
 }
