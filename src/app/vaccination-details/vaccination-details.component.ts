@@ -31,6 +31,26 @@ export class VaccinationDetailsComponent implements OnInit {
   //ngOnInit() {}
 
   ngOnInit() {
+    this.fetchData();
+  }
+
+  removeVaccination() {
+    if (confirm('Wollen Sie den Impftermin wirklich löschen?')) {
+      this.is.remove(this.vaccination.id).subscribe(res => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
+    }
+  }
+
+  removeUser(id) {
+    if (
+      confirm('Wollen Sie den User mit der ID ' + id + ' wirklich löschen?')
+    ) {
+      this.is_user.remove(id).subscribe(res => this.fetchData());
+    }
+  }
+
+  fetchData() {
     //man holt sich die gesamte Route und durch snapshot params bekommt man z.B :isbn
     const params = this.route.snapshot.params;
     //gibt mir die genau dieses Buch mit der ISBN
@@ -42,24 +62,6 @@ export class VaccinationDetailsComponent implements OnInit {
       this.is_user
         .getSingleUserById(localStorage.userId)
         .subscribe(res => (this.user = res));
-    }
-
-    console.log(localStorage.userId);
-  }
-
-  removeVaccination() {
-    if (confirm('Wollen Sie den Impftermin wirklich löschen?')) {
-      this.is.remove(this.vaccination.id).subscribe(res => {
-        this.router.navigate(['../'], { relativeTo: this.route });
-      });
-    }
-  }
-
-  removeUser() {
-    if (confirm('Wollen Sie diesen User wirklich löschen?')) {
-      this.is_user.remove(this.user.id).subscribe(res => {
-        this.router.navigate(['../'], { relativeTo: this.route });
-      });
     }
   }
 }

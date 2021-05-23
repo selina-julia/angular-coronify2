@@ -47,12 +47,22 @@ h3,
 }
 
 .cfy-button {
-  background: var(--main) !important;
+  background: #fff;
   color: #fff;
-  border-radius: 25px;
+  border-radius: 5px;
   padding: 12px 25px;
   border: none;
   font-weight: bold;
+  margin-right: 5px;
+}
+
+.crayola {
+  background-color: var(--main);
+  color: white !important;
+}
+
+.crayola * {
+  color: white !important;
 }
 
 .left-column {
@@ -137,7 +147,7 @@ h3,
 }
 
 .username-firstletter {
-  background: #6a75ca;
+  background: var(--main);
   color: white;
   border-radius: 25px;
   height: 30px;
@@ -155,4 +165,8 @@ h3,
 
 .vaccination-info .first {
   margin-right: 5%;
+}
+
+.back-arrow:hover i {
+  color: #5628ee;
 }

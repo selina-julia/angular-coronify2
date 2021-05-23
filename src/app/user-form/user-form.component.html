@@ -18,6 +18,17 @@
     <input type="text" formControlName="lastname">
   </div>
 
+
+
+  <div class="field">
+    <label>Geschlecht</label>
+
+    <select formControlName="gender">
+      <option value="m">männlich</option>
+      <option value="f">weiblich</option>
+    </select>
+  </div>
+
   <div class="field">
     <label>Sozialversicherungsnummer</label>
     <input type="number" formControlName="ssn">
@@ -31,6 +42,15 @@
   <div class="field">
     <label>E-Mail</label>
     <input type="email" formControlName="email">
+  </div>
+
+  <div *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="field">
+    <label>Bereits geimpft</label>
+
+    <select formControlName="hasVaccination">
+      <option value="1">ja</option>
+      <option value="0">nein</option>
+    </select>
   </div>
 
   <!--

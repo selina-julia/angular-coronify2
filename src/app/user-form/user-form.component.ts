@@ -11,6 +11,7 @@ import { FormArray, FormControl } from '@angular/forms';
 import { UserService } from '../shared/user.service';
 import { UserFactory } from '../shared/user-factory';
 import { User } from '../shared/user';
+import { AuthenticationService } from '../shared/authentication-service';
 
 @Component({
   selector: 'cfy-user-form',
@@ -38,7 +39,8 @@ export class UserFormComponent implements OnInit {
     private us: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    public authService: AuthenticationService
   ) {}
 
   ngOnInit() {
@@ -59,6 +61,13 @@ export class UserFormComponent implements OnInit {
         this.initUser();
       });
     }
+
+    if (this.authService.isLoggedIn()) {
+      this.us
+        .getSingleUserById(localStorage.userId)
+        .subscribe(res => (this.user = res));
+    }
+
     this.initUser();
   }
 
@@ -72,11 +81,11 @@ export class UserFormComponent implements OnInit {
       birthdate: this.user.birthdate,
       ssn: this.user.ssn,
       email: this.user.email,
-      gender: 'm',
-      hasVaccination: 0,
+      gender: this.user.gender,
+      hasVaccination: this.user.hasVaccination,
       isAdmin: 0,
       password: '$2y$10$5Wep7W2vPo4EWYc.1wbJte3ChN5jLmEkL52bTOt51/EdKM2F8UH5.',
-      phone: '786858'
+      phone: this.user.phone
     });
 
     console.log(this.user.isAdmin);
