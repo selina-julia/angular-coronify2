@@ -114,14 +114,12 @@ export class UserFormComponent implements OnInit {
     console.log(user);
 
     console.log(user.firstname);
-
     console.log(this.user.isAdmin);
-
     user.birthdate = this.userForm.value.birthdate;
-    user.vaccination_id = this.user.vaccination_id;
-    user.isAdmin = this.user.isAdmin;
 
     if (this.isUpdatingUser) {
+      user.vaccination_id = this.user.vaccination_id;
+      user.isAdmin = this.user.isAdmin;
       console.log('updating');
       this.us.update(user).subscribe(res => {
         this.router.navigate(['../../../vaccinations', user.vaccination_id], {
@@ -135,14 +133,11 @@ export class UserFormComponent implements OnInit {
         console.log('user created');
         //this.user = UserFactory.empty();
         //this.userForm.reset(UserFactory.empty());
-        /*this.router.navigate(
-          [
-            '../../vaccinations',
-            this.route.snapshot.params,
-            ['vaccination_id']
-          ],
+
+        this.router.navigate(
+          ['../../vaccinations', this.route.snapshot.params['vaccination_id']],
           { relativeTo: this.route }
-        ); */
+        );
       });
     }
   }
