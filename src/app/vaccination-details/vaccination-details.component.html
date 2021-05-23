@@ -81,7 +81,8 @@
     Löschen
   </a>
 
-  <a *ngIf="authService.isLoggedIn()" class="ui tiny violet labeled icon button" [routerLink]="['../../user']">
+  <a *ngIf="authService.isLoggedIn()" class="ui tiny violet labeled icon button"
+    [routerLink]="['../../user', vaccination?.id]">
     <i class="write icon"></i> Jetzt anmelden
   </a>
 </div>

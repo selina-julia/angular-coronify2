@@ -1,67 +1,122 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../shared/authentication-service';
-import { UserFactory } from '../shared/user-factory';
-import { UserService } from '../shared/user.service';
-import { User, Vaccination } from '../shared/vaccination';
 import { VaccinationFactory } from '../shared/vaccination-factory';
 import { VaccinationChoiceService } from '../shared/vaccination-choice.service';
+import { Vaccination } from '../shared/vaccination';
+import { Location } from '../shared/location';
+import { LocationService } from '../shared/location.service';
+import { DatePipe } from '@angular/common';
+import { FormArray, FormControl } from '@angular/forms';
+import { UserService } from '../shared/user.service';
+import { UserFactory } from '../shared/user-factory';
+import { User } from '../shared/user';
 
 @Component({
   selector: 'cfy-user-form',
   templateUrl: './user-form.component.html'
 })
 export class UserFormComponent implements OnInit {
-  vaccination: Vaccination = VaccinationFactory.empty();
-  activeUser: User = UserFactory.empty();
-  selectedGender: string;
-  genders: string[] = ['männlich', 'weiblich', 'divers'];
+  //@Input() locations: Location;
+  id: bigint;
+  locations: Location[];
+  vaccinations: Vaccination[];
   userForm: FormGroup;
+  //liefer einen leeren Impftermin
+  vaccination = VaccinationFactory.empty();
+  user = UserFactory.empty();
+  isUpdatingUser = false;
+
+  //assoziatives Array mit string als wert und anfangs ist es leer
+  //errors: { [key: string]: string } = {};
 
   constructor(
+    private fb: FormBuilder,
     private vs: VaccinationChoiceService,
+    private loc: LocationService,
+    private vac: VaccinationChoiceService,
+    private us: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    public datepipe: DatePipe,
-    private us: UserService,
-    public authService: AuthenticationService,
-    private fb: FormBuilder
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
-    this.userForm = this.fb.group({
-      firstname: this.activeUser.firstname,
-      lastname: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
-      birthdate: ['', [Validators.required]],
-      ssn: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-      email: ['', [Validators.required]]
-    });
+    this.loc.getAll().subscribe(res => (this.locations = res));
 
-    const params = this.route.snapshot.params;
-    this.vs.getSingle(params['id']).subscribe(res => (this.vaccination = res));
-    console.log(+params['id']);
+    // this.vaccination.starttime = new Date(this.vaccination.starttime);
 
-    if (this.authService.isLoggedIn()) {
-      this.us
-        .getSingleUserById(this.authService.getCurrentUserId())
-        .subscribe(res => {
-          this.activeUser = res;
-        });
+    const id = this.route.snapshot.params['id'];
+    if (id) {
+      this.isUpdatingUser = true;
+      this.us.getSingleUserById(id).subscribe(user => {
+        this.user = user;
+        //warum 2x init = asynchron; Rest Call dauert!
+        this.initUser();
+      });
     }
+    this.initUser();
   }
 
-  addUserToVaccination() {
-    if (confirm('Willst du dich wirklich zu diesen Impftermin anmelden?')) {
-      this.activeUser.vaccination_id = this.vaccination.id;
-      this.activeUser.gender = this.selectedGender;
-      console.log(this.activeUser);
+  initUser() {
+    this.userForm = this.fb.group({
+      id: this.user.id,
+      //vorgefertigter Validator
+      vaccination_id: +this.route.snapshot.params['vaccination_id'],
+      firstname: this.user.firstname,
+      lastname: this.user.lastname,
+      birthdate: this.user.birthdate,
+      ssn: this.user.ssn,
+      email: this.user.email
+    });
+    /*this.userForm.statusChanges.subscribe(() => {
+      this.updateErrorMessages();
+    });*/
+  }
 
-      this.us.saveUser(this.activeUser).subscribe(res => {
-        this.router.navigate(['../'], { relativeTo: this.route });
+  /**Formular kann verschiedene Zustände annehmen:
+   *  valid: alles ok,
+   *  invalid: mindestens 1 feld ist nicht ok,
+   *  dirty: true = wenn der Nutzer bereits mit dem Formular argiert hat
+   *  dirty: false = noch keine Interaktion -- noch keine Fehlermeldungen
+   **/
+
+  /*updateErrorMessages() {
+    this.errors = {};
+    for (const message of userFormErrorMessages) {
+      const control = this.userForm.get(message.forControl);
+      if (
+        control &&
+        control.dirty &&
+        control.invalid &&
+        control.errors[message.forValidator] &&
+        !this.errors[message.forControl]
+      ) {
+        this.errors[message.forControl] = message.text;
+      }
+    }
+  }*/
+
+  addUserToVaccination() {
+    const user: User = UserFactory.fromObject(this.userForm.value);
+    //deep copy - did not work without??
+    console.log(user);
+
+    console.log(user.firstname);
+
+    if (this.isUpdatingUser) {
+      console.log("updating");
+      this.us.update(user).subscribe(res => {
+        this.router.navigate(['../../users', user.id], {
+          relativeTo: this.route
+        });
+      });
+    } else {
+      console.log(user);
+      this.us.create(user).subscribe(res => {
+        this.user = UserFactory.empty();
+        this.userForm.reset(UserFactory.empty());
+        this.router.navigate(['../user'], { relativeTo: this.route });
       });
     }
   }

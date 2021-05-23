@@ -31,9 +31,16 @@ export class UserService {
       .pipe(catchError(this.errorHandler));
   }
 
-  saveUser(user: User): Observable<any> {
+  create(user: User): Observable<any> {
     return this.http
       .put(`${this.api}/user/${user.id}`, user)
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler));
+  }
+
+  update(user: User): Observable<any> {
+    return this.http
+      .put(`${this.api}/users/${user.id}`, user)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
