@@ -15,7 +15,7 @@
       <div class="left-column">
         <p class="style-h2">Coronify.</p>
         <div class="ui vertical fluid tabular menu">
-          <a routerLink="home" routerLinkActive="active" class="item"><i class="th icon"></i>Home</a>
+          <a routerLink="home" routerLinkActive="active" class="item"><i class="home icon"></i>Home</a>
           <a routerLink="vaccinations" routerLinkActive="active" class="item"><i class="syringe icon"></i>Impfungen</a>
           <a routerLink="locations" routerLinkActive="active"
             class="item"><i class="map marker alternate icon"></i>Impforte</a>
@@ -28,8 +28,19 @@
 
     <div class="thirteen wide stretched column">
       <div class="middle-column">
+
+        <div *ngIf="isLoggedIn()" class="username">
+
+          <span class="username-firstletter">{{this.user?.firstname.charAt(0)}}</span>
+          <span>Hallo, {{user?.firstname}}! </span>
+
+        </div>
+
+
+
+        <!--
         <cfy-vaccination-search (vaccinationSelected)="vaccinationSelected($event)" class="column">
-        </cfy-vaccination-search>
+        </cfy-vaccination-search>-->
         <div class="segment">
           <router-outlet></router-outlet>
         </div>

@@ -12,9 +12,7 @@
       <div>{{vaccination?.location.postalcode}} {{vaccination?.location.city}}</div>
       <br>
 
-      <div *ngIf="user?.isAdmin == true">
-        hi, {{user.firstname}}
-      </div>
+
 
       <div *ngIf="user?.isAdmin == true">
         <div *ngIf="vaccination.users.length != 0; else other_content">

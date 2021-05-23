@@ -125,3 +125,21 @@ h3,
   margin-left: 0 !important;
   margin-right: 10px !important;
 }
+
+.username {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.username-firstletter {
+  background: #6a75ca;
+  color: white;
+  border-radius: 25px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
