@@ -6,6 +6,8 @@ import { VaccinationChoiceService } from '../shared/vaccination-choice.service';
 import { LocationService } from '../shared/location.service';
 import { VaccinationFactory } from '../shared/vaccination-factory';
 import { AuthenticationService } from '../shared/authentication-service';
+import { User } from '../shared/user';
+import { UserService } from '../shared/user.service';
 
 @Component({
   selector: 'is-vaccination-details',
@@ -13,6 +15,7 @@ import { AuthenticationService } from '../shared/authentication-service';
 })
 export class VaccinationDetailsComponent implements OnInit {
   vaccination: Vaccination = VaccinationFactory.empty();
+  user: User;
   @Input() location: Location;
   @Output() showListEvent = new EventEmitter<any>();
 
@@ -21,7 +24,8 @@ export class VaccinationDetailsComponent implements OnInit {
     private is_loc: LocationService,
     private route: ActivatedRoute,
     private router: Router,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    private is_user: UserService
   ) {}
 
   //ngOnInit() {}
@@ -33,6 +37,20 @@ export class VaccinationDetailsComponent implements OnInit {
     this.is_loc.getSingle(params['id']).subscribe(res => (this.location = res));
     this.is.getSingle(params['id']).subscribe(res => (this.vaccination = res));
     console.log(+params['id']);
+
+    if (this.authService.isLoggedIn()) {
+      this.is_user
+        .getSingleUserById(this.authService.getCurrentUserId())
+        .subscribe(res => {
+          this.user = res;
+        });
+    }
+
+    this.is_user
+      .getSingleUserById(localStorage.userId)
+      .subscribe(res => (this.user = res));
+
+    console.log(this.is_user);
   }
 
   removeVaccination() {

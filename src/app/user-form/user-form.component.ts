@@ -42,9 +42,8 @@ export class UserFormComponent implements OnInit {
     });
 
     const params = this.route.snapshot.params;
-    this.vs.getSingle(params['id']).subscribe(res => {
-      this.vaccination = res;
-    });
+    this.vs.getSingle(params['id']).subscribe(res => (this.vaccination = res));
+    console.log(+params['id']);
 
     if (this.authService.isLoggedIn()) {
       this.us
