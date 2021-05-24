@@ -27,6 +27,12 @@ export class LocationService {
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
+  getLocationByPostalcode(postalcode: number): Observable<Location> {
+    return this.http
+      .get<Location>(`${this.api}/locations/city/${postalcode}`)
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler));
+  }
   create(location: Location): Observable<any> {
     return this.http
       .post(`${this.api}/location`, location)

@@ -67,8 +67,8 @@ h3,
 }
 
 .left-column {
-  margin-left: 10%;
-  padding-top: 2%;
+  margin-left: 20%;
+  padding-top: 20%;
 }
 
 .middle-column {
@@ -87,6 +87,12 @@ h3,
   border-radius: 20px;
   background: #fff;
   transition: 300ms ease-in-out;
+}
+
+.ui.vertical.tabular.menu .active.item {
+  color: var(--main) !important;
+  /*background: var(--bg-color) !important;
+  border-radius: 25px 0 0 25px !important;*/
 }
 
 .vaccination-item:hover {
@@ -131,8 +137,13 @@ h3,
   border: 0 !important;
 }
 
+.main-grid > .column {
+  padding: 0 !important;
+}
+
 .ui.vertical.tabular.menu .item {
   padding: 8% 0;
+  margin: 10% 0;
 }
 
 .ui.vertical.menu .item > i.icon {
