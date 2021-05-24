@@ -1,64 +1,64 @@
 <h1>Impftermin hinzufügen</h1>
-<form class="ui large form" [formGroup]="vaccinationForm" (ngSubmit)="submitForm()">
 
-  <input type="hidden" name="id">
+<div class="ui grid">
+  <div class="eleven wide column">
+    <form class="ui large form" [formGroup]="vaccinationForm" (ngSubmit)="submitForm()">
 
-  <div class="field">
-    <label>Maximale Teilnehmeranzahl</label>
-    <input type="number" formControlName="maxParticipants">
-    <div *ngIf="errors.maxParticipants" class="ui negative message">{{
-      errors.maxParticipants }}</div>
-  </div>
+      <input type="hidden" name="id">
 
-  <!--
-  <div class="field">
-    <label>Datum</label>
-    <input type="date" formControlName="date">
-    <div *ngIf="errors.date" class="ui negative message">{{
-      errors.date }}</div>
-  </div>
 
-  -->
+      <div class="field">
+        <label>Maximale Teilnehmeranzahl</label>
+        <input type="number" formControlName="maxParticipants">
+        <div *ngIf="errors.maxParticipants" class="ui negative message">{{
+          errors.maxParticipants }}</div>
+      </div>
 
-  <div class="field">
-    <label>Datum</label>
-    <input type="date" formControlName="date">
-    <div *ngIf="errors.date" class="ui negative message">{{
-      errors.date }}</div>
-  </div>
+      <div class="field">
+        <label>Datum</label>
+        <input type="date" formControlName="date">
+        <div *ngIf="errors.date" class="ui negative message">{{
+          errors.date }}</div>
+      </div>
 
-  <div class="two fields">
-    <div class="field">
-      <label>Startzeit</label>
-      <input type="time" formControlName="starttime">
-      <div *ngIf="errors.starttime" class="ui negative message">{{
-        errors.starttime }}</div>
-    </div>
+      <div class="two fields">
+        <div class="field">
+          <label>Startzeit</label>
+          <input type="time" formControlName="starttime">
+          <div *ngIf="errors.starttime" class="ui negative message">{{
+            errors.starttime }}</div>
+        </div>
 
-    <div class="field">
-      <label>Endzeit</label>
-      <input type="time" formControlName="endtime">
-      <div *ngIf="errors.endtime" class="ui negative message">{{
-        errors.endtime }}</div>
-    </div>
-  </div>
+        <div class="field">
+          <label>Endzeit</label>
+          <input type="time" formControlName="endtime">
+          <div *ngIf="errors.endtime" class="ui negative message">{{
+            errors.endtime }}</div>
+        </div>
+      </div>
 
 
 
 
 
-  <!--(change)="selectChangeHandler($event)"-->
-  <div class="field">
-    <label>Ort</label>
-    <select class="ui dropdown" formControlName="location_id">
+      <!--(change)="selectChangeHandler($event)"-->
+      <div class="field">
+        <label>Ort</label>
+        <select class="ui dropdown" formControlName="location_id">
       <option *ngFor="let location of locations" [value]="location.id">
       {{location.city}}</option>
     </select>
+      </div>
+      <br>
+
+
+      <button type="submit" class="ui cfy-button crayola"
+[disabled]="vaccinationForm.invalid">Termin speichern</button>
+
+    </form>
+
   </div>
-  <br>
-
-
-  <button type="submit" class="ui green button"
-[disabled]="vaccinationForm.invalid">Speichern</button>
-
-</form>
+  <div class="five wide column">
+    <img src="../assets/img/corona1.svg" alt="">
+  </div>
+</div>

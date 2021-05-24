@@ -1,8 +1,15 @@
 <div *ngIf="!isLoggedIn()">
-  <div class="ui grid center">
-    <div class="ten wide column">
+  <h1>Login</h1>
+  <div class="ui grid center login">
 
-      <h1>Login</h1>
+    <div class="eight wide column">
+      <img src="../assets/img/login.svg" alt="">
+    </div>
+
+
+    <div class="six wide column">
+
+
       <form class="ui large form" [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="field">
           <label>E-Mail</label>
@@ -29,12 +36,22 @@ loginForm.get('password').touched)" class="ui negative message">
             Passwort ist verpflichtend </div>
         </div>
         <button type="submit" class="ui cfy-button crayola"
-[disabled]="loginForm.invalid">Login</button>
+[disabled]="loginForm.invalid"><i class="lock icon"></i>Login</button>
       </form>
     </div>
+
   </div>
 </div>
 <div *ngIf="isLoggedIn()">
-  <button type="button" class="ui cfy-button crayola"
+  <div class="ui grid center login">
+    <div class="six wide column">
+      <img src="../assets/img/corona1.svg" alt="">
+    </div>
+    <div class="seven wide column">
+      <h1 class="black">Bis zum nächsten Mal!</h1>
+      <button type="button" class="ui cfy-button crayola"
 (click)="logout()">Logout</button>
+    </div>
+
+  </div>
 </div>
