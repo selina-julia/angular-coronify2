@@ -28,7 +28,7 @@ export class LocationFormComponent implements OnInit {
   vaccination = VaccinationFactory.empty();
   user = UserFactory.empty();
   location = LocationFactory.empty();
-  isUpdatingUser = false;
+  isUpdatingLocation = false;
 
   //assoziatives Array mit string als wert und anfangs ist es leer
   //errors: { [key: string]: string } = {};
@@ -56,42 +56,35 @@ export class LocationFormComponent implements OnInit {
 
     console.log(id);
     if (id) {
-      this.isUpdatingUser = true;
-      this.us.getSingleUserById(id).subscribe(user => {
-        this.user = user;
+      this.isUpdatingLocation = true;
+      this.loc.getSingle(id).subscribe(location => {
+        this.location = location;
         //warum 2x init = asynchron; Rest Call dauert!
-        this.initUser();
+        this.initLocation();
       });
     }
 
-    if (this.authService.isLoggedIn()) {
+    /*if (this.authService.isLoggedIn()) {
       this.us
         .getSingleUserById(localStorage.userId)
         .subscribe(res => (this.user = res));
-    }
+    }*/
 
-    this.initUser();
+    this.initLocation();
   }
 
-  initUser() {
-    this.userForm = this.fb.group({
-      id: this.user.id,
+  initLocation() {
+    this.locationForm = this.fb.group({
+      id: this.location.id,
       //vorgefertigter Validator
-      vaccination_id: +this.route.snapshot.params['vaccination_id'],
-      firstname: this.user.firstname,
-      lastname: this.user.lastname,
-      birthdate: this.user.birthdate,
-      ssn: this.user.ssn,
-      email: this.user.email,
-      gender: this.user.gender,
-      hasVaccination: this.user.hasVaccination,
-      isAdmin: 0,
-      password: '$2y$10$5Wep7W2vPo4EWYc.1wbJte3ChN5jLmEkL52bTOt51/EdKM2F8UH5.',
-      phone: this.user.phone
+      name: this.location.name,
+      address: this.location.address,
+      postalcode: this.location.postalcode,
+      city: this.location.city
     });
 
-    console.log(this.user.isAdmin);
-    /*this.userForm.statusChanges.subscribe(() => {
+    //console.log(this.user.isAdmin);
+    /*this.locationForm.statusChanges.subscribe(() => {
       this.updateErrorMessages();
     });*/
   }
@@ -105,8 +98,8 @@ export class LocationFormComponent implements OnInit {
 
   /*updateErrorMessages() {
     this.errors = {};
-    for (const message of userFormErrorMessages) {
-      const control = this.userForm.get(message.forControl);
+    for (const message of locationFormErrorMessages) {
+      const control = this.locationForm.get(message.forControl);
       if (
         control &&
         control.dirty &&
@@ -119,34 +112,35 @@ export class LocationFormComponent implements OnInit {
     }
   }*/
 
-  addUserToVaccination() {
-    const user: User = UserFactory.fromObject(this.userForm.value);
+  saveLocation() {
+    const location: Location = LocationFactory.fromObject(
+      this.locationForm.value
+    );
     //deep copy - did not work without??
-    console.log(user);
+    console.log(location);
 
-    console.log(user.firstname);
-    console.log(this.user.isAdmin);
-    user.birthdate = this.userForm.value.birthdate;
+    console.log(location.name);
+    console.log(this.location.name);
 
-    if (this.isUpdatingUser) {
-      user.vaccination_id = this.user.vaccination_id;
-      user.isAdmin = this.user.isAdmin;
+    if (this.isUpdatingLocation) {
+      //location.id = this.user.vaccination_id;
+      //user.isAdmin = this.user.isAdmin;
       console.log('updating');
-      this.us.update(user).subscribe(res => {
-        this.router.navigate(['../../../vaccinations', user.vaccination_id], {
+      this.loc.update(location).subscribe(res => {
+        this.router.navigate(['../locations'], {
           relativeTo: this.route
         });
       });
     } else {
-      console.log(user);
-      console.log('new user');
-      this.us.create(user).subscribe(res => {
-        console.log('user created');
+      console.log(location);
+      console.log('new location');
+      this.loc.create(location).subscribe(res => {
+        console.log('location created');
         //this.user = UserFactory.empty();
-        //this.userForm.reset(UserFactory.empty());
+        //this.locationForm.reset(UserFactory.empty());
 
         this.router.navigate(
-          ['../../vaccinations', this.route.snapshot.params['vaccination_id']],
+          ['../../locations', this.route.snapshot.params['location_id']],
           { relativeTo: this.route }
         );
       });

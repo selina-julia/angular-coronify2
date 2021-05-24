@@ -35,7 +35,7 @@ export class LocationService {
   }
   create(location: Location): Observable<any> {
     return this.http
-      .post(`${this.api}/location`, location)
+      .post(`${this.api}/location/save`, location)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }

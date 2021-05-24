@@ -3,7 +3,7 @@
 
 <div class="ui grid" *ngIf="vaccination">
   <div class="twelve wide column">
-    <form class="ui large form" [formGroup]="userForm" (ngSubmit)="addUserToVaccination()">
+    <form class="ui large form" [formGroup]="locationForm" (ngSubmit)="saveLocation()">
 
       <input type="hidden" name="id">
 
@@ -26,7 +26,7 @@
 
         <div class="field">
           <label>Ort</label>
-          <input type="number" formControlName="city">
+          <input type="text" formControlName="city">
         </div>
       </div>
 
