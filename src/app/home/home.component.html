@@ -1,9 +1,21 @@
 <div class="ui container">
   <h1>Home</h1>
-  <p>hello this is home.</p>
-  <a routerLink="../vaccinations" class="ui cfy-button">
-    Impftermine ansehen
-  </a>
+  <h2 *ngIf="isLoggedIn()">Hallo, {{user?.firstname}} </h2>
+
+  <div *ngIf="user?.vaccination_id != null; else notVaccinated">
+    Du bist bereits zu einer Impfung angemeldet!
+    <p>{{user?.vaccination_id}}</p>
+  </div>
+  <ng-template #notVaccinated>
+    <div>Du bist noch zu keiner Impfung angemeldet</div>
+  </ng-template>
+
+  <div>
+    <br><br>
+    <a routerLink="../vaccinations" class="ui cfy-button">
+      Impftermine ansehen
+    </a>
+  </div>
 </div>
 
 <!--<cfy-vaccination-search (vaccinationSelected)="vaccinationSelected($event)" class="column">

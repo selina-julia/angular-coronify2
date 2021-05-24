@@ -1,4 +1,5 @@
-
+import { Vaccination } from './vaccination';
+export { Vaccination } from './vaccination';
 
 export class User {
   constructor(
@@ -14,7 +15,7 @@ export class User {
     public hasVaccination: boolean,
     public isAdmin: boolean,
     //public vaccination: Vaccination,
-    public vaccination_id?: number,
+    public vaccination_id?: number
   ) {}
 }
 

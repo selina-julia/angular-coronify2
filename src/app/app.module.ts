@@ -27,6 +27,7 @@ import { AuthenticationService } from './shared/authentication-service';
 import { TokenInterceptorService } from './shared/token-interceptor.service';
 import { JwtInterceptorService } from './shared/jwt.interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
 
 registerLocaleData(localeDe);
 
@@ -42,7 +43,8 @@ registerLocaleData(localeDe);
     LocationDetailsComponent,
     VaccinationFormComponent,
     UserFormComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
