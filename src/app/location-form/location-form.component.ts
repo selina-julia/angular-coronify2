@@ -12,6 +12,7 @@ import { UserService } from '../shared/user.service';
 import { UserFactory } from '../shared/user-factory';
 import { User } from '../shared/user';
 import { AuthenticationService } from '../shared/authentication-service';
+import { LocationFactory } from '../shared/location-factory';
 
 @Component({
   selector: 'cfy-location-form',
@@ -22,10 +23,11 @@ export class LocationFormComponent implements OnInit {
   id: bigint;
   locations: Location[];
   vaccinations: Vaccination[];
-  userForm: FormGroup;
+  locationForm: FormGroup;
   //liefer einen leeren Impftermin
   vaccination = VaccinationFactory.empty();
   user = UserFactory.empty();
+  location = LocationFactory.empty();
   isUpdatingUser = false;
 
   //assoziatives Array mit string als wert und anfangs ist es leer

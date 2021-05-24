@@ -7,84 +7,32 @@
 
       <input type="hidden" name="id">
 
-      <div class="two fields">
-        <div class="field">
-          <label>Vorname</label>
-          <input type="text" formControlName="firstname">
-        </div>
-
-        <div class="field">
-          <label>Nachname</label>
-          <input type="text" formControlName="lastname">
-        </div>
-
+      <div class="field">
+        <label>Name des Impfortes</label>
+        <input type="text" formControlName="name">
       </div>
+
 
       <div class="three fields">
         <div class="field">
-          <label>Geschlecht</label>
-
-          <select formControlName="gender">
-      <option value="m">männlich</option>
-      <option value="f">weiblich</option>
-    </select>
+          <label>Straße und Hausnummer</label>
+          <input type="text" formControlName="address">
         </div>
 
         <div class="field">
-          <label>Sozialversicherungsnummer</label>
-          <input type="number" formControlName="ssn">
+          <label>Postleitzahl</label>
+          <input type="number" formControlName="postalcode">
         </div>
 
         <div class="field">
-          <label>Geburtsdatum</label>
-          <input type="date" formControlName="birthdate">
-        </div>
-      </div>
-
-      <div class="two fields">
-        <div class="field">
-          <label>E-Mail</label>
-          <input type="email" formControlName="email">
-        </div>
-
-        <div class="field">
-          <label>Telefon</label>
-          <input type="text" formControlName="phone">
+          <label>Ort</label>
+          <input type="number" formControlName="city">
         </div>
       </div>
 
 
 
-
-
-
-      <div *ngIf="authService.isLoggedIn() && user?.isAdmin == true && this.isUpdatingUser === true" class="field">
-        <label>Bereits geimpft</label>
-
-        <select formControlName="hasVaccination">
-      <option value="1">ja</option>
-      <option value="0">nein</option>
-    </select>
-      </div>
-
-      <!--
-  <div class="field">
-    <label>Datum</label>
-    <input type="date" formControlName="date">
-    <div *ngIf="errors.date" class="ui negative message">{{
-      errors.date }}</div>
-  </div>
-
-      id: this.user.id,
-      firstname: this.user.firstname,
-      lastname: this.user.lastname,
-      ssn: this.user.ssn,
-      email: this.user.email,
-      birthdate: this.user.birthdate
-  -->
-
-
-      <button type="submit" class="ui cfy-button crayola">Jetzt anmelden</button>
+      <button type="submit" class="ui cfy-button crayola">Ort hinzufügen</button>
 
     </form>
   </div>
