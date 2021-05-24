@@ -1,10 +1,10 @@
 <div class="ui container">
   <h1>Home</h1>
-  <h2 *ngIf="isLoggedIn()">Hallo, {{user?.firstname}} </h2>
+  <h2 class="black" *ngIf="isLoggedIn()">Hallo, {{user?.firstname}}! </h2>
   <div *ngIf="isLoggedIn(); else notLoggedIn">
     <div *ngIf="user?.vaccination_id != null; else notVaccinated">
-      Du bist bereits zu einer Impfung angemeldet!
-      <p>{{user?.vaccination_id}}</p>
+      Du bist bereits zu einer Impfung angemeldet! <br><br><br>
+
       <a class="ui crayola cfy-button" [routerLink]="['../vaccinations', user?.vaccination_id]">
         <i class="calendar outline icon"></i> Termindetails ansehen
       </a>
@@ -34,7 +34,9 @@
       </a>
     </div>
   </ng-template>
-
+  <div class="home-image">
+    <img src="../assets/img/home.svg" alt="">
+  </div>
 </div>
 
 <!--<cfy-vaccination-search (vaccinationSelected)="vaccinationSelected($event)" class="column">

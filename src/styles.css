@@ -2,7 +2,7 @@
 
 /* variables */
 :root {
-  --main: #5628ee;
+  --main: #6c63ff;
   --white: #ffffff;
   --bg-color: #eff2f8;
 }
@@ -179,4 +179,17 @@ h3,
 .center {
   display: flex;
   justify-content: center;
+}
+
+.home-image {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.home-image img {
+  width: 600px;
+}
+
+.black {
+  color: #333;
 }
