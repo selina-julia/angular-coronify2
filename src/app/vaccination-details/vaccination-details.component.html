@@ -25,7 +25,6 @@
       </div>
 
 
-
       <div *ngIf="user?.isAdmin == true">
         <div *ngIf="vaccination.users.length != 0; else other_content">
           <div>
@@ -100,9 +99,9 @@
   </a>
   <ng-template #goToLogin>
     <div *ngIf="user?.vaccination_id == null">
-    <a class="ui crayola cfy-button" [routerLink]="['../../login']">
-      <i class="plus icon"></i> Jetzt anmelden
-    </a>
+      <a class="ui crayola cfy-button" [routerLink]="['../../login']">
+        <i class="plus icon"></i> Jetzt anmelden
+      </a>
     </div>
   </ng-template>
   <button *ngIf="user?.vaccination_id != null" disabled="disabled" class="ui button" [routerLink]="['../../user', vaccination?.id]">
