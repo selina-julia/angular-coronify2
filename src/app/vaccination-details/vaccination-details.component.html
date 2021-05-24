@@ -94,7 +94,18 @@
     Löschen
   </a>
 
-  <a class="ui crayola cfy-button" [routerLink]="['../../user', vaccination?.id]">
+  <a *ngIf="user?.vaccination_id == null && authService.isLoggedIn(); else goToLogin" class="ui crayola cfy-button"
+    [routerLink]="['../../user', vaccination?.id]">
     <i class="plus icon"></i> Jetzt anmelden
   </a>
+  <ng-template #goToLogin>
+    <div *ngIf="user?.vaccination_id == null">
+    <a class="ui crayola cfy-button" [routerLink]="['../../login']">
+      <i class="plus icon"></i> Jetzt anmelden
+    </a>
+    </div>
+  </ng-template>
+  <button *ngIf="user?.vaccination_id != null" disabled="disabled" class="ui button" [routerLink]="['../../user', vaccination?.id]">
+    <i class="plus icon"></i> Jetzt anmelden
+  </button>
 </div>

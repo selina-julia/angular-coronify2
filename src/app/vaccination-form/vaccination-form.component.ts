@@ -125,7 +125,7 @@ export class VaccinationFormComponent implements OnInit {
 
     if (this.isUpdatingVaccination) {
       this.cfy.update(vaccination).subscribe(res => {
-        this.router.navigate(['../../../vaccinations', vaccination.id], {
+        this.router.navigate(['../../vaccinations', vaccination.id], {
           relativeTo: this.route
         });
       });

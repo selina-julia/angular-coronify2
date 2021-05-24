@@ -47,6 +47,10 @@ h3,
   font-size: 25px;
 }
 
+.button {
+  padding: 12px 25px !important;
+}
+
 .cfy-button {
   background: #fff;
   color: #fff;
@@ -55,15 +59,32 @@ h3,
   border: none;
   font-weight: bold;
   margin-right: 5px;
+  transition: 300ms ease-in-out;
+}
+
+.cfy-button:hover {
+  background: var(--main);
+  color: white !important;
 }
 
 .crayola {
   background-color: var(--main);
   color: white !important;
+  transition: 300ms ease-in-out;
+}
+
+.crayola:hover {
+  background: white !important;
+  color: var(--main) !important;
+}
+
+.crayola:hover * {
+  color: var(--main) !important;
 }
 
 .crayola * {
   color: white !important;
+  transition: 300ms ease-in-out;
 }
 
 .left-column {
