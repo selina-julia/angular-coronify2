@@ -16,6 +16,7 @@ import { VaccinationFormComponent } from './vaccination-form/vaccination-form.co
 import { UserFormComponent } from './user-form/user-form.component';
 import { LoginComponent } from './login/login.component';
 import { LocationFormComponent } from './location-form/location-form.component';
+import { AdministrationComponent } from './administration/administration.component';
 
 import { LocationListComponent } from './location-list/location-list.component';
 import { LocationListItemComponent } from './location-list-item/location-list-item.component';
@@ -46,7 +47,8 @@ registerLocaleData(localeDe);
     VaccinationFormComponent,
     UserFormComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    AdministrationComponent
   ],
   imports: [
     BrowserModule,

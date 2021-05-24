@@ -125,7 +125,7 @@ export class VaccinationFormComponent implements OnInit {
 
     if (this.isUpdatingVaccination) {
       this.cfy.update(vaccination).subscribe(res => {
-        this.router.navigate(['../../vaccinations', vaccination.id], {
+        this.router.navigate(['../../../vaccinations', vaccination.id], {
           relativeTo: this.route
         });
       });
@@ -134,7 +134,9 @@ export class VaccinationFormComponent implements OnInit {
       this.cfy.create(vaccination).subscribe(res => {
         this.vaccination = VaccinationFactory.empty();
         this.vaccinationForm.reset(VaccinationFactory.empty());
-        this.router.navigate(['../vaccinations'], { relativeTo: this.route });
+        this.router.navigate(['../vaccinations'], {
+          relativeTo: this.route
+        });
       });
     }
   }
