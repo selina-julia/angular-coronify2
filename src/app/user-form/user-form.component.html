@@ -58,9 +58,7 @@
 
 
 
-      <div
-        *ngIf="authService.isLoggedIn() && user?.isAdmin == true && this.isUpdatingUser === true"
-        class="field">
+      <div *ngIf="authService.isLoggedIn() && user?.isAdmin == true && this.isUpdatingUser === true" class="field">
         <label>Bereits geimpft</label>
 
         <select formControlName="hasVaccination">
@@ -96,6 +94,10 @@
       <p>Dieser Impftermin findet bei der Adresse <b>{{vaccination?.location.address}}, {{vaccination?.location.postalcode}}
       {{vaccination?.location.city}}</b> am <b>{{vaccination?.date | date:"dd.MM.yyyy"}}</b> zwischen <b>{{vaccination?.starttime | date:"HH:mm"}} und
       {{vaccination?.endtime | date:"HH:mm"}}</b> statt.</p>
+    </div>
+
+    <div>
+      <img src="../assets/img/Safe-cuate.svg" alt="">
     </div>
   </div>
 </div>
