@@ -139,10 +139,7 @@ export class LocationFormComponent implements OnInit {
         //this.user = UserFactory.empty();
         //this.locationForm.reset(UserFactory.empty());
 
-        this.router.navigate(
-          ['../../locations', this.route.snapshot.params['location_id']],
-          { relativeTo: this.route }
-        );
+        this.router.navigate(['../locations'], { relativeTo: this.route });
       });
     }
   }
