@@ -33,7 +33,7 @@ export class HomeComponent {
         .subscribe(res => (this.user = res));
 
       //console.log(this.is_user.getSingleUserById(localStorage.userId));
-      //console.log(this.vs.getSingle(this.user.vaccination_id));
+      console.log(this.user.vaccination_id);
     }
   }
 

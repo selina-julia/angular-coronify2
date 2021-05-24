@@ -58,7 +58,9 @@
 
 
 
-      <div *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="field">
+      <div
+        *ngIf="authService.isLoggedIn() && user?.isAdmin == true && this.isUpdatingUser === true"
+        class="field">
         <label>Bereits geimpft</label>
 
         <select formControlName="hasVaccination">
