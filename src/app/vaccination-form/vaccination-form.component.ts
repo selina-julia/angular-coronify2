@@ -55,15 +55,6 @@ export class VaccinationFormComponent implements OnInit {
   }
 
   initVaccination() {
-    /*this.datePipeStart = this.datePipe.transform(
-      this.vaccination.starttime,
-      'HH:mm:ss'
-    );
-    this.datePipeEnd = this.datePipe.transform(
-      this.vaccination.endtime,
-      'HH:mm:ss'
-    ); */
-
     this.vaccinationForm = this.fb.group({
       id: this.vaccination.id,
       //vorgefertigter Validator

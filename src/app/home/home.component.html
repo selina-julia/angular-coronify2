@@ -4,7 +4,7 @@
   <div *ngIf="isLoggedIn(); else notLoggedIn">
     <div *ngIf="user?.vaccination_id != null; else notVaccinated">
       Du bist bereits zu einer Impfung angemeldet! <br><br><br>
-
+      
       <a class="ui crayola cfy-button" [routerLink]="['../vaccinations', user?.vaccination_id]">
         <i class="calendar outline icon"></i> Termindetails ansehen
       </a>

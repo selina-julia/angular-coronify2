@@ -88,7 +88,7 @@ export class UserFormComponent implements OnInit {
       phone: this.user.phone
     });
 
-    console.log(this.user.isAdmin);
+    console.log(this.user?.vaccination_id);
     /*this.userForm.statusChanges.subscribe(() => {
       this.updateErrorMessages();
     });*/

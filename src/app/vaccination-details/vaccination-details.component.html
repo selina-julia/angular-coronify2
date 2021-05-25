@@ -24,6 +24,10 @@
 
       </div>
 
+      <h3 *ngIf="user?.vaccination_id == vaccination.id">
+        Du bist zu dieser Impfung angemeldet!
+      </h3>
+
 
       <div *ngIf="user?.isAdmin == true">
         <div *ngIf="vaccination.users.length != 0; else other_content">
@@ -107,4 +111,10 @@
   <button *ngIf="user?.vaccination_id != null && user?.isAdmin == false" disabled="disabled" class="ui button" [routerLink]="['../../user', vaccination?.id]">
     <i class="plus icon"></i> Jetzt anmelden
   </button>
+
+  <!-- <a *ngIf="authService.isLoggedIn() && user?.vaccination_id != null" class="ui cfy-button"
+    (click)="removeVaccination()">
+    <i class="remove icon"></i>
+    Impfung stornieren
+  </a>-->
 </div>
