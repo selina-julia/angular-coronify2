@@ -18,6 +18,7 @@ export class VaccinationDetailsComponent implements OnInit {
   user: User;
   @Input() location: Location;
   @Output() showListEvent = new EventEmitter<any>();
+  vaccinationCancelled = false;
 
   constructor(
     private is: VaccinationChoiceService,
@@ -47,6 +48,17 @@ export class VaccinationDetailsComponent implements OnInit {
       confirm('Wollen Sie den User mit der ID ' + id + ' wirklich löschen?')
     ) {
       this.is_user.remove(id).subscribe(res => this.fetchData());
+    }
+  }
+
+  removeUserFromVaccination() {
+    if (confirm('Wollen Sie sich wirklich ihren Impftermin stornieren?')) {
+      this.user.vaccination_id = null;
+      console.log(this.user.vaccination_id);
+      this.is_user.update(this.user).subscribe(res => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
+      this.vaccinationCancelled = true;
     }
   }
 

@@ -117,6 +117,8 @@ export class UserFormComponent implements OnInit {
     }
   }*/
 
+
+
   addUserToVaccination() {
     const user: User = UserFactory.fromObject(this.userForm.value);
     //deep copy - did not work without??
