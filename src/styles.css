@@ -237,3 +237,7 @@ h3,
 .field input {
   margin-bottom: 10px !important;
 }
+
+.icon-text-wrapper {
+  display: flex;
+}
