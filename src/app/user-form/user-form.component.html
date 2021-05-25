@@ -69,22 +69,6 @@
     </select>
       </div>
 
-      <!--
-  <div class="field">
-    <label>Datum</label>
-    <input type="date" formControlName="date">
-    <div *ngIf="errors.date" class="ui negative message">{{
-      errors.date }}</div>
-  </div>
-
-      id: this.user.id,
-      firstname: this.user.firstname,
-      lastname: this.user.lastname,
-      ssn: this.user.ssn,
-      email: this.user.email,
-      birthdate: this.user.birthdate
-  -->
-
 
       <button type="submit" class="ui cfy-button crayola">Jetzt anmelden</button>
 
@@ -92,7 +76,7 @@
   </div>
   <div class="four wide column">
     <div class="vaccination-registration-info">
-      <h3>{{vaccination?.location.name}}</h3>
+      <h3>{{vaccination.location_id}}</h3>
       <p>Dieser Impftermin findet bei der Adresse <b>{{vaccination?.location.address}}, {{vaccination?.location.postalcode}}
       {{vaccination?.location.city}}</b> am <b>{{vaccination?.date | date:"dd.MM.yyyy"}}</b> zwischen <b>{{vaccination?.starttime | date:"HH:mm"}} und
       {{vaccination?.endtime | date:"HH:mm"}}</b> statt.</p>

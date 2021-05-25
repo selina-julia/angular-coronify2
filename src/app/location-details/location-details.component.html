@@ -18,10 +18,58 @@
 
 {{vaccination.location_id}}, {{location.id}}
 
-<span *ngFor="let vac of vaccinations; last as l">
-      {{ vac.location_id }}<span *ngIf="!l">, </span>
+<span *ngFor="let vaccination of vaccinations; last as l">
+      {{ vaccination.location_id }}<span *ngIf="!l">, </span>
 </span>
 
+
+<div>
+  <h3 class="ui subheader">
+    <i class="angle right icon"></i>Imptermine in {{location.name}}, {{location.city}}:
+  </h3>
+  <table class="ui five column table">
+    <thead>
+      <tr>
+        <th>Datum</th>
+        <th>Von</th>
+        <th>Bis</th>
+        <th>Verfügbare Impfungen</th>
+        <th></th>
+
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vac of location.vaccinations; last as l">
+
+        <td>{{vac.date}}</td>
+        <td>{{vac.starttime}}</td>
+        <td>{{vac.endtime}}</td>
+        <td> {{vac.maxParticipants}}</td>
+        <td> <a [routerLink]="['../../vaccinations', vac?.id]"><i class="circular chevron right icon"></i> Hier anmelden
+          </a></td>
+
+
+
+
+
+      </tr>
+
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Am Standort {{location.name}} gibt es aktuell {{location.vaccinations?.length}} Impftermine.</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+
+
+      </tr>
+    </tfoot>
+  </table>
+</div>
 
 <!--<button [routerLink]="'/locations'" class="ui red button">
   Zurück zur Übersicht
