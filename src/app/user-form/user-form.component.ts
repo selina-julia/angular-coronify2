@@ -78,15 +78,15 @@ export class UserFormComponent implements OnInit {
       //vorgefertigter Validator
       vaccination_id: +this.route.snapshot.params['vaccination_id'],
       firstname: [this.user.firstname, Validators.required],
-      lastname: this.user.lastname,
-      birthdate: this.user.birthdate,
-      ssn: this.user.ssn,
-      email: this.user.email,
-      gender: this.user.gender,
+      lastname: [this.user.lastname, Validators.required],
+      birthdate: [this.user.birthdate, Validators.required],
+      ssn: [this.user.ssn, Validators.required],
+      email: [this.user.email, Validators.required],
+      gender: [this.user.gender, Validators.required],
       hasVaccination: this.user.hasVaccination,
       isAdmin: 0,
       password: '$2y$10$5Wep7W2vPo4EWYc.1wbJte3ChN5jLmEkL52bTOt51/EdKM2F8UH5.',
-      phone: this.user.phone
+      phone: [this.user.phone, Validators.required]
     });
 
     console.log(this.user?.vaccination_id);
