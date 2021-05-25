@@ -93,8 +93,8 @@
     Löschen
   </a>
 
-  <a *ngIf="user?.vaccination_id == null && authService.isLoggedIn(); else goToLogin" class="ui crayola cfy-button"
-    [routerLink]="['../../user', vaccination?.id]">
+  <a *ngIf="user?.vaccination_id == null && authService.isLoggedIn() || user?.isAdmin == true; else goToLogin"
+    class="ui crayola cfy-button" [routerLink]="['../../user', vaccination?.id]">
     <i class="plus icon"></i> Jetzt anmelden
   </a>
   <ng-template #goToLogin>
@@ -104,7 +104,7 @@
       </a>
     </div>
   </ng-template>
-  <button *ngIf="user?.vaccination_id != null" disabled="disabled" class="ui button" [routerLink]="['../../user', vaccination?.id]">
+  <button *ngIf="user?.vaccination_id != null && user?.isAdmin == false" disabled="disabled" class="ui button" [routerLink]="['../../user', vaccination?.id]">
     <i class="plus icon"></i> Jetzt anmelden
   </button>
 </div>
