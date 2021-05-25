@@ -45,7 +45,7 @@ export class LocationService {
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
-  remove(id: string): Observable<any> {
+  remove(id: number): Observable<any> {
     return this.http
       .delete(`${this.api}/location/${id}`)
       .pipe(retry(3))

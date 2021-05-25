@@ -112,7 +112,7 @@
     <i class="plus icon"></i> Jetzt anmelden
   </button>
 
-  <a *ngIf="authService.isLoggedIn() && user?.vaccination_id != null" class="ui cfy-button"
+  <a *ngIf="authService.isLoggedIn() && user?.vaccination_id === vaccination.id" class="ui cfy-button"
     (click)="removeUserFromVaccination()">
     <i class="remove icon"></i>
     Impfung stornieren

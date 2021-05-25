@@ -16,6 +16,12 @@
   </div>
 </div>
 
+{{vaccination.location_id}}, {{location.id}}
+
+<span *ngFor="let vac of vaccinations; last as l">
+      {{ vac.location_id }}<span *ngIf="!l">, </span>
+</span>
+
 
 <!--<button [routerLink]="'/locations'" class="ui red button">
   Zurück zur Übersicht
@@ -23,3 +29,8 @@
 <button routerLink=".." class="ui crayola cfy-button">
   Zurück zur Übersicht
 </button>
+
+<a class="ui cfy-button" (click)="removeLocation()">
+  <i class="remove icon"></i>
+  Löschen
+</a>

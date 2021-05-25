@@ -15,7 +15,9 @@
 
         <div class="field">
           <label>Nachname</label>
-          <input type="text" formControlName="lastname">
+          <input *ngIf="this.isUpdatingUser === true; else newUserLastname" disabled type="text" formControlName="lastname">
+          <ng-template #newUserLastname><input type="text" formControlName="lastname"></ng-template>
+
         </div>
 
       </div>

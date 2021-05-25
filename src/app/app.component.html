@@ -19,7 +19,7 @@
           <a routerLink="vaccinations" routerLinkActive="active" class="item"><i class="syringe icon"></i>Impfungen</a>
           <a routerLink="locations" routerLinkActive="active"
             class="item"><i class="map marker alternate icon"></i>Impforte</a>
-          <a *ngIf="isLoggedIn()" routerLink="administration" routerLinkActive="active"
+          <a *ngIf="isLoggedIn() && user?.isAdmin == true" routerLink="administration" routerLinkActive="active"
             class="item"><i class="lock icon"></i>Administration</a>
           <a routerLink="login" routerLinkActive="active" class="item"><i class="reply icon"></i>{{getLoginLabel()}}</a>
         </div>
