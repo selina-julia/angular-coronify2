@@ -11,13 +11,13 @@
         <div class="field">
           <label>Vorname</label>
           <input type="text" formControlName="firstname">
+          <div *ngIf="errors.firstname" class="ui negative message">{{
+            errors.firstname }}</div>
         </div>
 
         <div class="field">
           <label>Nachname</label>
-          <input *ngIf="this.isUpdatingUser === true; else newUserLastname" disabled type="text" formControlName="lastname">
-          <ng-template #newUserLastname><input type="text" formControlName="lastname"></ng-template>
-
+          <input type="text" formControlName="lastname">
         </div>
 
       </div>

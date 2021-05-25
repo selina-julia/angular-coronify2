@@ -35,6 +35,13 @@ export class VaccinationDetailsComponent implements OnInit {
     this.fetchData();
   }
 
+  checkMaxPersons() {
+    if (this.vaccination.users.length < this.vaccination.maxParticipants) {
+      return false;
+    }
+    return true;
+  }
+
   removeVaccination() {
     if (confirm('Wollen Sie den Impftermin wirklich löschen?')) {
       this.is.remove(this.vaccination.id).subscribe(res => {

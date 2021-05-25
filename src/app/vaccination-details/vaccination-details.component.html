@@ -11,7 +11,22 @@
           <p class="description"><i class="clock outline icon"></i> {{ vaccination.starttime }} - {{ vaccination.endtime
             }}</p>
           <p> <i class="user outline icon"></i> {{vaccination.users.length}} / {{vaccination.maxParticipants}}</p>
-          <p>Noch {{vaccination.maxParticipants-vaccination.users.length}} Plätze verfügbar!</p>
+
+          <div *ngIf="this.checkMaxPersons() == true; else userCount">
+            <div class="ui negative message">
+              <div class="header">
+                Alle freien Plätze vergeben!
+              </div>
+            </div>
+          </div>
+          <ng-template #userCount>
+            <div class="ui info message">
+              <div class="header">
+                Noch {{vaccination.maxParticipants-vaccination.users.length}} Plätze verfügbar!
+              </div>
+            </div>
+
+          </ng-template>
 
         </div>
 
@@ -97,23 +112,32 @@
     Löschen
   </a>
 
-  <a *ngIf="user?.vaccination_id == null && authService.isLoggedIn() || user?.isAdmin == true; else goToLogin"
-    class="ui crayola cfy-button" [routerLink]="['../../user', vaccination?.id]">
-    <i class="plus icon"></i> Jetzt anmelden
-  </a>
-  <ng-template #goToLogin>
-    <div *ngIf="user?.vaccination_id == null">
+
+  <span *ngIf="user?.isAdmin == true; else normalUser">
+    <a *ngIf="checkMaxPersons() == false" class="ui crayola cfy-button" [routerLink]="['../../user', vaccination?.id]">
+      <i class="plus icon"></i> Jetzt User hinzufügen </a>
+  </span>
+  <ng-template #normalUser>
+
+    <a *ngIf="user?.vaccination_id == null && authService.isLoggedIn() && checkMaxPersons() == false; else goToLogin"
+      class="ui crayola cfy-button" [routerLink]="['../../user', vaccination?.id]">
+      <i class="plus icon"></i> Jetzt anmelden
+    </a>
+    <ng-template #goToLogin>
       <a class="ui crayola cfy-button" [routerLink]="['../../login']">
         <i class="plus icon"></i> Jetzt anmelden
       </a>
-    </div>
-  </ng-template>
-  <button *ngIf="user?.vaccination_id != null && user?.isAdmin == false" disabled="disabled" class="ui button" [routerLink]="['../../user', vaccination?.id]">
+    </ng-template>
+
+    <button *ngIf="user?.vaccination_id != null && this.checkMaxPersons() == false" disabled="disabled" class="ui button" [routerLink]="['../../user', vaccination?.id]">
     <i class="plus icon"></i> Jetzt anmelden
   </button>
+  </ng-template>
 
-  <a *ngIf="authService.isLoggedIn() && user?.vaccination_id === vaccination.id" class="ui cfy-button"
-    (click)="removeUserFromVaccination()">
+
+
+  <a *ngIf="authService.isLoggedIn() && user?.vaccination_id === vaccination.id && user?.isAdmin === false"
+    class="ui cfy-button" (click)="removeUserFromVaccination()">
     <i class="remove icon"></i>
     Impfung stornieren
   </a>

@@ -12,6 +12,7 @@ import { UserService } from '../shared/user.service';
 import { UserFactory } from '../shared/user-factory';
 import { User } from '../shared/user';
 import { AuthenticationService } from '../shared/authentication-service';
+import { UserFormErrorMessages } from './user-form-error-messages';
 
 @Component({
   selector: 'cfy-user-form',
@@ -29,7 +30,7 @@ export class UserFormComponent implements OnInit {
   isUpdatingUser = false;
 
   //assoziatives Array mit string als wert und anfangs ist es leer
-  //errors: { [key: string]: string } = {};
+  errors: { [key: string]: string } = {};
 
   constructor(
     private fb: FormBuilder,
@@ -89,9 +90,9 @@ export class UserFormComponent implements OnInit {
     });
 
     console.log(this.user?.vaccination_id);
-    /*this.userForm.statusChanges.subscribe(() => {
+    this.userForm.statusChanges.subscribe(() => {
       this.updateErrorMessages();
-    });*/
+    });
   }
 
   /**Formular kann verschiedene Zustände annehmen:
@@ -101,9 +102,9 @@ export class UserFormComponent implements OnInit {
    *  dirty: false = noch keine Interaktion -- noch keine Fehlermeldungen
    **/
 
-  /*updateErrorMessages() {
+  updateErrorMessages() {
     this.errors = {};
-    for (const message of userFormErrorMessages) {
+    for (const message of UserFormErrorMessages) {
       const control = this.userForm.get(message.forControl);
       if (
         control &&
@@ -115,7 +116,7 @@ export class UserFormComponent implements OnInit {
         this.errors[message.forControl] = message.text;
       }
     }
-  }*/
+  }
 
 
 
