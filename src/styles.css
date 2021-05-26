@@ -246,6 +246,10 @@ h3,
   width: 600px;
 }
 
+.home-image .admin-home-image {
+  width: 400px;
+}
+
 .black {
   color: #333;
 }

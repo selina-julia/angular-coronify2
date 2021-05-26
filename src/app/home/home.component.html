@@ -66,8 +66,12 @@
   </ng-template>
 
 
-  <div class="home-image">
+  <div class="home-image" *ngIf="user?.isAdmin == false">
     <img src="../assets/img/home.svg" alt="">
+  </div>
+
+  <div class="home-image" *ngIf="user?.isAdmin == true">
+    <img class="admin-home-image" src="../assets/img/home.svg" alt="">
   </div>
 </div>
 
