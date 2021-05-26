@@ -224,6 +224,10 @@ h3,
   margin-right: 5%;
 }
 
+.back-arrow i {
+  margin-top: 5%;
+}
+
 .back-arrow:hover i {
   color: #5628ee;
 }
@@ -265,4 +269,8 @@ h3,
 
 .icon-text-wrapper {
   display: flex;
+}
+
+.vac-list {
+  padding-bottom: 5%!important;
 }

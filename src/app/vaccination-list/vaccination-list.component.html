@@ -11,7 +11,7 @@
 
 <h1>Aktuelle Impftermine</h1>
 
-<div class="ui equal height stretched grid stackable">
+<div class="ui equal height stretched grid stackable vac-list">
   <a *ngFor="let vaccination of vaccinations" class="five wide column item cfy-vaccination-list-item"
     [vaccination]="vaccination" [routerLink]="['./', vaccination.id]"></a>
   <div *ngIf="!vaccinations" class="ui active dimmer">
