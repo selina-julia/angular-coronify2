@@ -25,7 +25,7 @@ export class LocationDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private vs: VaccinationChoiceService,
     private us: UserService,
-    private authService: AuthenticationService
+    public authService: AuthenticationService
   ) {}
   ngOnInit() {
     const params = this.route.snapshot.params;

@@ -1,7 +1,10 @@
 <a [routerLink]="'/locations'" class="back-arrow">
   <i class="arrow left large icon"></i>
 </a>
-<h1>Impfort anlegen</h1>
+<h1 *ngIf="isUpdatingLocation == true; else AddNew">Impfort bearbeiten</h1>
+<ng-template #AddNew>
+  <h1>Impfort anlegen</h1>
+</ng-template>
 
 
 <div class="ui grid" *ngIf="vaccination">

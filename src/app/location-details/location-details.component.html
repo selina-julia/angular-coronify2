@@ -67,7 +67,11 @@
   Zurück zur Übersicht
 </button>-->
 
+  <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui cfy-button"
+    [routerLink]="['../../locationAdmin', location?.id]">
+    <i class="write icon"></i> Impfort bearbeiten
+  </a>
 
-  <a *ngIf="user?.isAdmin == true" class="ui cfy-button" (click)="removeLocation()">
+  <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui cfy-button" (click)="removeLocation()">
     <i class="remove icon"></i>
     Impfort löschen </a>

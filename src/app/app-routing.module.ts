@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { LocationFormComponent } from './location-form/location-form.component';
-import { AdministrationComponent } from './administration/administration.component'
+import { AdministrationComponent } from './administration/administration.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'admin/:id', component: VaccinationFormComponent },
   { path: 'login', component: LoginComponent },
   { path: 'locationAdmin', component: LocationFormComponent },
+  { path: 'locationAdmin/:id', component: LocationFormComponent },
   { path: 'administration', component: AdministrationComponent }
 ];
 @NgModule({

@@ -1,7 +1,11 @@
 <a [routerLink]="'/..'" class="back-arrow">
   <i class="arrow left large icon"></i>
 </a>
-<h1>Impftermin hinzufügen</h1>
+<h1 *ngIf="isUpdatingVaccination == true; else AddNew">Impftermin bearbeiten</h1>
+<ng-template #AddNew>
+  <h1>Impftermin hinzufügen</h1>
+</ng-template>
+
 
 <div class="ui grid">
   <div class="eleven wide column">

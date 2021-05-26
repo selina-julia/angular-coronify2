@@ -112,7 +112,7 @@
     Löschen
   </a>
 
-  <h4 *ngIf="user?.vaccination_id != null && user?.isAdmin == false">
+  <h4 *ngIf="user?.vaccination_id != null && user?.isAdmin == false && user?.vaccination_id != vaccination.location.id">
     <i class="syringe icon"></i>
     Du bist bereits zu einer Impfung angemeldet.
   </h4>
@@ -133,7 +133,7 @@
       </a>
     </ng-template>
 
-    <button *ngIf="authService.isLoggedIn() && user?.vaccination_id == null && this.checkMaxPersons() == false || user?.vaccination_id != vaccination.id" disabled="disabled" class="ui button" [routerLink]="['../../user', vaccination?.id]">
+    <button *ngIf="authService.isLoggedIn() && user?.vaccination_id == null && this.checkMaxPersons() == false && user?.vaccination_id != vaccination.id" disabled="disabled" class="ui button" [routerLink]="['../../user', vaccination?.id]">
     <i class="plus icon"></i> Jetzt anmelden
   </button>
 
