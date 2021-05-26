@@ -113,6 +113,27 @@ h3,
   transition: 300ms ease-in-out;
 }
 
+.admin {
+  padding: 30% 15% !important;
+  display: flex;
+  flex-direction: column;
+  color: var(--main);
+  transition: 300ms ease-in-out;
+}
+
+.admin i {
+  transition: 300ms ease-in-out;
+}
+
+.admin .header {
+  padding-top: 0 !important;
+  margin-top: 10px !important;
+}
+
+.admin:hover i {
+  transform: scale(1.2);
+}
+
 .ui.vertical.tabular.menu .active.item {
   color: var(--main) !important;
   /*background: var(--bg-color) !important;

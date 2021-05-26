@@ -1,8 +1,12 @@
+<a [routerLink]="'/locations'" class="back-arrow">
+  <i class="arrow left large icon"></i>
+</a>
 <h1>Impfort anlegen</h1>
 
 
 <div class="ui grid" *ngIf="vaccination">
   <div class="twelve wide column">
+
     <form class="ui large form" [formGroup]="locationForm" (ngSubmit)="saveLocation()">
 
       <input type="hidden" name="id">
