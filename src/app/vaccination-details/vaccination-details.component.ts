@@ -35,7 +35,7 @@ export class VaccinationDetailsComponent implements OnInit {
     this.fetchData();
   }
 
-  checkMaxPersons() {
+  checkMaxParticipants() {
     if (this.vaccination.users.length < this.vaccination.maxParticipants) {
       return false;
     }
