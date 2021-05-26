@@ -127,7 +127,7 @@ export class LocationFormComponent implements OnInit {
       //user.isAdmin = this.user.isAdmin;
       console.log('updating');
       this.loc.update(location).subscribe(res => {
-        this.router.navigate(['../locations'], {
+        this.router.navigate(['../../locations', location.id], {
           relativeTo: this.route
         });
       });

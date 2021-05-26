@@ -25,7 +25,11 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'locationAdmin', component: LocationFormComponent },
   { path: 'locationAdmin/:id', component: LocationFormComponent },
-  { path: 'administration', component: AdministrationComponent }
+  { path: 'administration', component: AdministrationComponent },
+  {
+    path: 'vaccinationslocation/:location_id',
+    component: VaccinationFormComponent
+  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -27,6 +27,8 @@ export class VaccinationFormComponent implements OnInit {
   datePipeEnd: string;
   //assoziatives Array mit string als wert und anfangs ist es leer
   errors: { [key: string]: string } = {};
+  vacToLoc = false;
+  loc_id = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -39,6 +41,16 @@ export class VaccinationFormComponent implements OnInit {
 
   ngOnInit() {
     this.loc.getAll().subscribe(res => (this.locations = res));
+
+    if (this.route.snapshot.params['location_id'] != null) {
+      console.log(this.route.snapshot.params['location_id']);
+      this.vacToLoc = true;
+      this.loc_id = this.route.snapshot.params['location_id'];
+    } else {
+      this.loc_id = this.vaccination.location_id;
+    }
+
+    console.log(this.loc_id);
 
     // this.vaccination.starttime = new Date(this.vaccination.starttime);
 
@@ -58,7 +70,7 @@ export class VaccinationFormComponent implements OnInit {
     this.vaccinationForm = this.fb.group({
       id: this.vaccination.id,
       //vorgefertigter Validator
-      location_id: [this.vaccination.location_id],
+      location_id: [this.loc_id],
       location: [this.vaccination.location],
       date: this.vaccination.date,
       starttime: this.vaccination.starttime,

@@ -67,6 +67,11 @@
   Zurück zur Übersicht
 </button>-->
 
+  <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui crayola cfy-button"
+    [routerLink]="['../../vaccinationslocation', location?.id]">
+    <i class="plus icon"></i> Impftermin hinzufügen
+  </a>
+
   <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui cfy-button"
     [routerLink]="['../../locationAdmin', location?.id]">
     <i class="write icon"></i> Impfort bearbeiten
