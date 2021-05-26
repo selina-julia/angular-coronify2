@@ -118,7 +118,7 @@
   </h4>
   <span *ngIf="user?.isAdmin == true; else normalUser">
     <a *ngIf="checkMaxParticipants() == false" class="ui crayola cfy-button" [routerLink]="['../../user', vaccination?.id]">
-      <i class="plus icon"></i> Jetzt User hinzufügen </a>
+      <i class="plus icon"></i> Teilnehmer hinzufügen </a>
   </span>
   <ng-template #normalUser>
 
