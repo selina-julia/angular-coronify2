@@ -1,6 +1,17 @@
-<div class="content">
-  <div class="header">det{{ location.name }}</div>
-  <div class="description"> {{ location.city }} </div>
-  <div class="metadata">
+<div class="vaccination-item">
+  <div class="content">
+    <div class="content-top">
+      <h3 class="header">{{location.name}}</h3>
+      <div class="description">{{ location.postalcode }} {{location.city}}</div>
+      <div class="metadata">
+      </div>
+    </div>
+    <div class="content-bottom">
+      <span class="icon-wrapper">
+    <span class="arrow-icon">
+    <i class="inverted arrow right icon"></i>
+    </span>
+      </span>
+    </div>
   </div>
 </div>

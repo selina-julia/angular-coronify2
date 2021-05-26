@@ -1,0 +1,75 @@
+<div class="ui container">
+  <h1>Home</h1>
+  <h2 class="black" *ngIf="isLoggedIn()">Hallo, {{user?.firstname}}! </h2>
+
+  <div *ngIf="user?.isAdmin == true; else normalUser">
+    <h3 class="header">Was möchtest du heute machen?</h3><br>
+    <div class="ui grid">
+
+      <div class="three wide column">
+
+        <div [routerLink]="['../locationAdmin']" class=" vaccination-item admin">
+          <i class="hospital big icon"></i>
+          <h3 class="header">
+            <a class="" [routerLink]="['../locationAdmin']">
+              Impfort anlegen
+            </a>
+          </h3>
+        </div>
+      </div>
+      <div class="three wide column">
+        <div [routerLink]="['../admin']" class="vaccination-item admin">
+          <i class="map marker alternate big icon"></i>
+          <h3 class="header">
+            <a class="" [routerLink]="['../admin']">
+              Impftermin anlegen
+            </a>
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #normalUser>
+    <div *ngIf="isLoggedIn(); else notLoggedIn">
+      <div *ngIf="user?.vaccination_id != null; else notVaccinated">
+        Du bist bereits zu einer Impfung angemeldet! <br><br><br>
+
+        <a class="ui crayola cfy-button" [routerLink]="['../vaccinations', user?.vaccination_id]">
+          <i class="calendar outline icon"></i> Termindetails ansehen
+        </a>
+      </div>
+      <ng-template #notVaccinated>
+        <div>Du bist noch zu keiner Impfung angemeldet</div>
+
+        <div>
+          <br><br>
+          <a routerLink="../vaccinations" class="ui cfy-button">
+            Impftermine ansehen
+          </a>
+          <a class="ui crayola cfy-button" [routerLink]="['../vaccinations']">
+            <i class="calendar outline icon"></i> Zu den Impfterminen
+          </a>
+        </div>
+      </ng-template>
+
+    </div>
+    <ng-template #notLoggedIn>
+      <h2>Willkommen bei Coronify!</h2>
+
+      <div>
+        <br><br>
+        <a routerLink="../vaccinations" class="ui cfy-button">
+          Impftermine ansehen
+        </a>
+      </div>
+    </ng-template>
+  </ng-template>
+
+
+  <div class="home-image">
+    <img class="admin-home-image" [class.admin-home-image]="user?.isAdmin == true" src="../assets/img/home.svg" alt="">
+  </div>
+
+
+  <!--<cfy-vaccination-search (vaccinationSelected)="vaccinationSelected($event)" class="column">
+</cfy-vaccination-search>-->

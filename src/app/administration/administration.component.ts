@@ -7,11 +7,11 @@ import { UserService } from '../shared/user.service';
 import { AuthenticationService } from '../shared/authentication-service';
 
 @Component({
-  selector: 'cfy-home',
-  templateUrl: './home.component.html',
+  selector: 'cfy-administration',
+  templateUrl: './administration.component.html',
   styles: []
 })
-export class HomeComponent {
+export class AdministrationComponent {
   listOn = true;
   detailsOn = false;
   vaccination: Vaccination;
@@ -33,7 +33,7 @@ export class HomeComponent {
         .subscribe(res => (this.user = res));
 
       //console.log(this.is_user.getSingleUserById(localStorage.userId));
-      console.log(this.user?.vaccination_id);
+      //console.log(this.user.vaccination_id);
     }
   }
 

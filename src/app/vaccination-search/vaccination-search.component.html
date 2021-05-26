@@ -1,0 +1,16 @@
+<div class="ui search" [ngClass]="{ loading: isLoading }">
+  <div class="ui icon input">
+    <input (keyup)="keyup.emit(searchTerm.value)" #searchTerm
+class="prompt" type="text" placeholder="Suche...">
+    <i class="search icon"></i>
+  </div>
+  <div class="results transition" [ngClass]="{ visible: foundVaccinations.length
+}">
+    <a href (click)="vaccinationSelected.emit(vaccination); false" class="result"
+      *ngFor="let vaccination of foundVaccinations">
+      <div class="content">
+        <div class="date">{{ vaccination.date }}</div>
+      </div>
+    </a>
+  </div>
+</div>

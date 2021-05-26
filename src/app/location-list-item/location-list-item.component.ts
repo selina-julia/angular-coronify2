@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Location } from "../shared/location";
 @Component({
-  selector: "a.bs-location-list-item",
+  selector: "a.cfy-location-list-item",
   templateUrl: "./location-list-item.component.html",
   styles: []
 })

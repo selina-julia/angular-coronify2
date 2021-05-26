@@ -1,0 +1,82 @@
+<div class="ui grid" *ngIf="location" class="item cfy-location-details">
+  <div class="twelve wide column">
+    <a [routerLink]="'/locations'" class="back-arrow">
+      <i class="arrow left large icon"></i>
+    </a>
+    <h1 class="ui header">{{ location.name }}</h1>
+    <div class="icon-text-wrapper">
+      <div><i class="map marker alternate icon"></i></div>
+      <div>
+        <div class="ui">{{ location.address }}</div>
+        <div class="ui">{{ location.postalcode }} {{ location.city }}</div>
+      </div>
+    </div>
+    <br>
+    <div class="ui divider"></div>
+  </div>
+  <br>
+  <div>
+    <div class="ui compact message">
+      <div class="content">
+        <div class="header">
+          <div>Hier gibt es aktuell {{location.vaccinations?.length}} Impftermine.</div>
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+
+    <div *ngIf="location.vaccinations?.length != 0">
+
+      <h3 class="ui subheader">
+        Impftermine am Standort {{location.name}}, {{location.city}}:
+      </h3>
+      <table class="ui five column table">
+        <thead>
+          <tr>
+            <th>Datum</th>
+            <th>Von</th>
+            <th>Bis</th>
+            <th>Maximale Teilnehmeranzahl</th>
+            <th></th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let vac of location.vaccinations; last as l">
+
+            <td>{{vac.date | date:'dd.MM.yyyy' }}</td>
+            <td>{{vac.starttime}}</td>
+            <td>{{vac.endtime}}</td>
+            <td> {{vac.maxParticipants}}</td>
+            <td> <a [routerLink]="['../../vaccinations', vac?.id]"><i class="circular chevron right icon"></i> Zum
+                Impftermin
+              </a></td>
+
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <br><br>
+  </div>
+
+  <!--<button [routerLink]="'/locations'" class="ui red button">
+  Zurück zur Übersicht
+</button>-->
+
+  <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui crayola cfy-button"
+    [routerLink]="['../../vaccinationslocation', location?.id]">
+    <i class="plus icon"></i> Impftermin hinzufügen
+  </a>
+
+  <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui cfy-button"
+    [routerLink]="['../../locationAdmin', location?.id]">
+    <i class="write icon"></i> Impfort bearbeiten
+  </a>
+
+  <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui cfy-button" (click)="removeLocation()">
+    <i class="remove icon"></i>
+    Impfort löschen </a>

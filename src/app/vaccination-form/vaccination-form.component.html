@@ -1,0 +1,83 @@
+<a [routerLink]="'/..'" class="back-arrow">
+  <i class="arrow left large icon"></i>
+</a>
+<h1 *ngIf="isUpdatingVaccination == true; else AddNew">Impftermin bearbeiten</h1>
+<ng-template #AddNew>
+  <h1>Impftermin hinzufügen</h1>
+</ng-template>
+
+
+<div class="ui grid">
+  <div class="eleven wide column">
+    <form class="ui large form" [formGroup]="vaccinationForm" (ngSubmit)="submitForm()">
+
+      <input type="hidden" name="id">
+
+
+      <div class="field">
+        <label>Maximale Teilnehmeranzahl</label>
+        <input type="number" formControlName="maxParticipants">
+        <div *ngIf="errors.maxParticipants" class="ui negative message">{{
+          errors.maxParticipants }}</div>
+      </div>
+
+      <div class="field">
+        <label>Datum</label>
+        <input type="date" formControlName="date">
+        <div *ngIf="errors.date" class="ui negative message">{{
+          errors.date }}</div>
+      </div>
+
+      <div class="two fields">
+        <div class="field">
+          <label>Startzeit</label>
+          <input type="time" formControlName="starttime">
+          <div *ngIf="errors.starttime" class="ui negative message">{{
+            errors.starttime }}</div>
+        </div>
+
+        <div class="field">
+          <label>Endzeit</label>
+          <input type="time" formControlName="endtime">
+          <div *ngIf="errors.endtime" class="ui negative message">{{
+            errors.endtime }}</div>
+        </div>
+      </div>
+
+
+
+
+
+      <!--(change)="selectChangeHandler($event)"-->
+      <div *ngIf="this.vacToLoc == false" class="field">
+        <label>Ort</label>
+        <select class="ui dropdown" formControlName="location_id">
+      <option *ngFor="let location of locations" [value]="location.id">
+      {{location.name}}, {{location.postalcode}} {{location.city}}</option>
+    </select>
+        <br>
+      </div>
+
+
+      <div *ngIf="this.vacToLoc == true" class="field">
+        <label>Ort</label>
+        <select [class.disabled]="vacToLoc" class="ui dropdown" formControlName="location_id">
+      <option *ngFor="let location of locations" [value]="location.id">
+      {{location.name}}, {{location.postalcode}} {{location.city}}</option>
+    </select>
+        <br>
+      </div>
+
+
+
+      <button type="submit" class="ui cfy-button crayola"
+[disabled]="vaccinationForm.invalid">Termin speichern</button>
+
+    </form>
+
+
+  </div>
+  <div class="five wide column">
+    <img src="../assets/img/corona1.svg" alt="">
+  </div>
+</div>

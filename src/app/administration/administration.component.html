@@ -1,0 +1,25 @@
+<h1>Administration</h1>
+
+<div class="ui grid">
+  <div class="four wide column">
+
+    <div [routerLink]="['../locationAdmin']" class=" vaccination-item admin">
+      <i class="hospital big icon"></i>
+      <h3 class="header">
+        <a class="" [routerLink]="['../locationAdmin']">
+          Impfort anlegen
+        </a>
+      </h3>
+    </div>
+  </div>
+  <div class="four wide column">
+    <div [routerLink]="['../admin']" class="vaccination-item admin">
+      <i class="map marker alternate big icon"></i>
+      <h3 class="header">
+        <a class="" [routerLink]="['../admin']">
+          Impftermin anlegen
+        </a>
+      </h3>
+    </div>
+  </div>
+</div>

@@ -1,40 +1,153 @@
-<div class="ui grid" *ngIf="vaccination" class="item cfy-vaccination-details">
-  <div class="twelve wide column">
-    <h1 class="ui header">{{ vaccination.id }}</h1>
-    <h3 class="ui header">{{ vaccination.maxParticipants }}</h3>
-    <div class="ui divider"></div>
-    <div class="ui grid">
-      <div class="four wide column">
-        <h4 class="ui header">User</h4>
-        <span *ngFor="let user of vaccination.users; last as l">
-          {{ user.firstname }} {{ user.lastname }}<span *ngIf="!l">, </span>
-        </span>
+<div class="container">
+  <div class="ui grid" *ngIf="vaccination" class="item cfy-vaccination-details">
+    <div class="twelve wide column">
+      <a [routerLink]="'/..'" class="back-arrow">
+        <i class="arrow left large icon"></i>
+      </a>
+      <h1 class="ui header">Impfung am {{ vaccination.date | date:'dd.MM.yyyy' }}</h1>
+
+      <div class="vaccination-info">
+        <div class="first">
+          <p class="description"><i class="clock outline icon"></i> {{ vaccination.starttime }} - {{ vaccination.endtime
+            }}</p>
+          <p> <i class="user outline icon"></i> {{vaccination.users.length}} / {{vaccination.maxParticipants}}</p>
+
+          <div *ngIf="this.checkMaxParticipants() == true; else userCount">
+            <div class="ui negative message">
+              <div class="header">
+                Alle freien Plätze vergeben!
+              </div>
+            </div>
+          </div>
+          <ng-template #userCount>
+            <div class="ui info message">
+              <div class="header">
+                Noch {{vaccination.maxParticipants-vaccination.users.length}} Plätze verfügbar!
+              </div>
+            </div>
+
+          </ng-template>
+
+        </div>
+
+        <div>
+          <i class="map outline icon"></i>
+          <div>{{vaccination?.location.name}} </div>
+          <div>{{vaccination?.location.address}}</div>
+          <div>{{vaccination?.location.postalcode}} {{vaccination?.location.city}}</div>
+        </div>
+
       </div>
-    </div>
-  </div>
-  <div class="sixteen wide column">
-    <h3 class="ui header">Zeit</h3>
-    {{ vaccination.time }}
-  </div>
-</div>
 
-<button [routerLink]="'/vaccinations'" class="ui red button">
-  Zurück zur Übersicht
-</button>
-<button routerLink=".." class="ui crayola cfy-button">
-  Zurück zur Übersicht
-</button>
+      <h3 *ngIf="user?.vaccination_id == vaccination.id">
+        Du bist zu dieser Impfung angemeldet!
+      </h3>
 
-<div class="ui container grid">
-  <div class="row">
-    <div class="four wide column">
-      <p><span>Four</span></p>
+
+      <div *ngIf="user?.isAdmin == true">
+        <div *ngIf="vaccination.users.length != 0; else other_content">
+          <div>
+            <h4 class="ui header">Angemeldete User:</h4>
+
+            <table class="ui celled table">
+              <thead>
+                <tr>
+                  <th>SVNR</th>
+                  <th>Name</th>
+                  <th>Geschlecht</th>
+                  <th>Geburtsdatum</th>
+                  <th>Telefon</th>
+                  <th>E-Mail</th>
+                  <th *ngIf="user?.isAdmin">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of vaccination.users; last as l">
+                  <td data-label="SVNR">{{ user.ssn }}</td>
+                  <td data-label="Name">{{ user.firstname }} {{ user.lastname }}</td>
+                  <td data-label="Geschlecht">{{user.gender}}</td>
+                  <td data-label="Geburtsdatum">{{user.birthdate | date:'dd.MM.yyyy'}}</td>
+                  <td data-label="Telefon">{{user.phone}}</td>
+                  <td data-label="E-Mail">{{user.email}}</td>
+                  <td data-label="Status">
+                    <span *ngIf="user.hasVaccination == false; else alreadyVaccinated">
+                      <input type="checkbox">
+                    </span>
+                    <ng-template #alreadyVaccinated><input type="checkbox" disabled="disabled" checked></ng-template>
+                  </td>
+                  <td>
+                    <a [routerLink]="['../../user/edit', user?.id]"><i class="pencil alternate icon"></i>
+                    </a>
+                    <a (click)="removeUser(user.id)"><i class="trash alternate icon"></i></a>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+        <ng-template #other_content>Noch keine Anmeldungen zu diesem Termin!</ng-template>
+      </div>
+
+
+
+      <!--<span> Noch {{vaccination.users.length}} verfügbar</span>-->
     </div>
-    <div class="eight wide column">
-      <p><span>Eight</span></p>
-    </div>
-    <div class="four wide column">
-      <p><span>Four</span></p>
-    </div>
-  </div>
+  </div> <br> <br>
+
+
+  <!--<button routerLink=".." class="ui crayola cfy-button">
+  Zurück zur Übersicht
+</button>-->
+
+
+  <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui cfy-button"
+    [routerLink]="['../../admin', vaccination?.id]">
+    <i class="write icon"></i> Impftermin bearbeiten
+  </a>
+  <a *ngIf="authService.isLoggedIn() && user?.isAdmin == true" class="ui cfy-button" (click)="removeVaccination()">
+    <i class="remove icon"></i>
+    Löschen
+  </a>
+
+  <h4 *ngIf="user?.vaccination_id != null && user?.isAdmin == false && user?.vaccination_id != vaccination.location.id">
+    <i class="syringe icon"></i>
+    Du bist bereits zu einer Impfung angemeldet.
+  </h4>
+  <span *ngIf="user?.isAdmin == true; else normalUser">
+    <a *ngIf="checkMaxParticipants() == false" class="ui crayola cfy-button" [routerLink]="['../../user', vaccination?.id]">
+      <i class="plus icon"></i> Jetzt User hinzufügen </a>
+  </span>
+  <ng-template #normalUser>
+
+    <a *ngIf="user?.vaccination_id == null && authService.isLoggedIn() && checkMaxParticipants() == false; else goToLogin"
+      class="ui crayola cfy-button" [routerLink]="['../../user', vaccination?.id]">
+      <i class="plus icon"></i> Jetzt anmelden
+    </a>
+    <ng-template #goToLogin>
+      <a *ngIf="user?.vaccination_id == null && this.checkMaxParticipants() == false" class="ui crayola cfy-button"
+        [routerLink]="['../../login']">
+        <i class="plus icon"></i> Jetzt anmelden
+      </a>
+    </ng-template>
+
+    <button *ngIf="authService.isLoggedIn() && user?.vaccination_id == null && this.checkMaxParticipants() == false && user?.vaccination_id != vaccination.id" disabled="disabled" class="ui button" [routerLink]="['../../user', vaccination?.id]">
+    <i class="plus icon"></i> Jetzt anmelden
+  </button>
+
+    <a *ngIf="authService.isLoggedIn() && user?.vaccination_id === vaccination.id" class="ui cfy-button"
+      (click)="removeUserFromVaccination()">
+      <i class="remove icon"></i>
+      Impfung stornieren
+    </a>
+  </ng-template>
+
+
+
+
+  <p *ngIf="vaccinationCancelled === true"> Du hast die Impfung erfolgreich storniert.</p>
+  <br><br><br><br>
+
 </div>

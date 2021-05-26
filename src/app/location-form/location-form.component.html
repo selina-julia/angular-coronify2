@@ -1,0 +1,52 @@
+<a [routerLink]="'/locations'" class="back-arrow">
+  <i class="arrow left large icon"></i>
+</a>
+<h1 *ngIf="isUpdatingLocation == true; else AddNew">Impfort bearbeiten</h1>
+<ng-template #AddNew>
+  <h1>Impfort anlegen</h1>
+</ng-template>
+
+
+<div class="ui grid" *ngIf="vaccination">
+  <div class="twelve wide column">
+
+    <form class="ui large form" [formGroup]="locationForm" (ngSubmit)="saveLocation()">
+
+      <input type="hidden" name="id">
+
+      <div class="field">
+        <label>Name des Impfortes</label>
+        <input type="text" formControlName="name">
+      </div>
+
+
+      <div class="three fields">
+        <div class="field">
+          <label>Straße und Hausnummer</label>
+          <input type="text" formControlName="address">
+        </div>
+
+        <div class="field">
+          <label>Postleitzahl</label>
+          <input type="number" formControlName="postalcode">
+        </div>
+
+        <div class="field">
+          <label>Ort</label>
+          <input type="text" formControlName="city">
+        </div>
+      </div>
+
+
+
+      <button type="submit" class="ui cfy-button crayola">Ort hinzufügen</button>
+
+    </form>
+  </div>
+  <div class="four wide column">
+
+    <div>
+      <img src="../assets/img/corona1.svg" alt="">
+    </div>
+  </div>
+</div>

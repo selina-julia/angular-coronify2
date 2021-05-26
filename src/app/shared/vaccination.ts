@@ -1,15 +1,17 @@
-import { User } from "./user";
-import { Location } from "./location";
-export { User } from "./user";
-export { Location } from "./location";
+import { User } from './user';
+export { User } from './user';
+import { Location } from './location';
+export { Location } from './location';
 
 export class Vaccination {
   constructor(
     public id: number,
     public maxParticipants: number,
     public date: Date,
-    public time: Date,
+    public starttime: Date,
+    public endtime: Date,
     public location_id: number,
+    public location: Location,
     public users?: User[]
   ) {}
 }

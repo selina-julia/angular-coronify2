@@ -1,17 +1,22 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Location, Vaccination } from "../shared/location";
+import { LocationService } from "../shared/location.service";
+
 @Component({
-  selector: "bs-location-list",
+  selector: "cfy-location-list",
   templateUrl: "./location-list.component.html",
   styles: []
 })
 export class LocationListComponent implements OnInit {
   locations: Location[];
+  @Output() showDetailsEvent = new EventEmitter<Location>();
+
+  constructor(private cfy: LocationService) {}
+
   ngOnInit() {
-    this.locations = [
-      new Location(1, "Impfzentrum", "Impfstraße 1", 4840, "Vöcklabruck", [
-        new Vaccination(1, 100, new Date(2014, 5, 29), new Date(), 1, [])
-      ])
-    ];
+    this.cfy.getAll().subscribe(res => (this.locations = res));
+  }
+  showDetails(location: Location) {
+    this.showDetailsEvent.emit(location);
   }
 }

@@ -1,20 +1,23 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { Vaccination, User } from "../shared/vaccination";
-import { VaccinationChoiceService } from "../shared/vaccination-choice.service";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Vaccination, User } from '../shared/vaccination';
+import { VaccinationChoiceService } from '../shared/vaccination-choice.service';
+import { VaccinationFactory } from '../shared/vaccination-factory';
 
 @Component({
-  selector: "cfy-vaccination-list",
-  templateUrl: "./vaccination-list.component.html",
+  selector: 'cfy-vaccination-list',
+  templateUrl: './vaccination-list.component.html',
   styles: []
 })
 export class VaccinationListComponent implements OnInit {
   vaccinations: Vaccination[];
+
   @Output() showDetailsEvent = new EventEmitter<Vaccination>();
 
   constructor(private cfy: VaccinationChoiceService) {}
 
   ngOnInit() {
-    this.vaccinations = this.cfy.getAll();
+    this.cfy.getAll().subscribe(res => (this.vaccinations = res));
   }
   showDetails(vaccination: Vaccination) {
     this.showDetailsEvent.emit(vaccination);
