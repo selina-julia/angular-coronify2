@@ -83,8 +83,8 @@ export class VaccinationFormComponent implements OnInit {
       //vorgefertigter Validator
       location_id: [this.loc_id],
       location: [this.vaccination.location],
-      date: this.vaccination.date,
-      starttime: this.vaccination.starttime,
+      date: [this.vaccination.date, Validators.required],
+      starttime: [this.vaccination.starttime, Validators.required],
       endtime: this.vaccination.endtime,
       maxParticipants: [
         this.vaccination.maxParticipants,
@@ -131,6 +131,11 @@ export class VaccinationFormComponent implements OnInit {
 
     console.log(vaccination.location.city);
 
+    console.log();
+    if (this.vaccination.starttime < this.vaccination.endtime) {
+      alert('Achtung! Die Endzeit muss größer sein als die Startzeit');
+    }
+
     this.loc
       .getSingle(this.vaccinationForm.controls['location_id'].value)
       .subscribe(res => {
@@ -148,9 +153,17 @@ export class VaccinationFormComponent implements OnInit {
       this.cfy.create(vaccination).subscribe(res => {
         this.vaccination = VaccinationFactory.empty();
         this.vaccinationForm.reset(VaccinationFactory.empty());
-        this.router.navigate(['../vaccinations'], {
-          relativeTo: this.route
-        });
+        if (this.vacToLoc == true) {
+          console.log('hi again');
+          console.log(this.vaccination.starttime);
+          this.router.navigate(['../../locations', vaccination.location_id], {
+            relativeTo: this.route
+          });
+        } else {
+          this.router.navigate(['../vaccinations'], {
+            relativeTo: this.route
+          });
+        }
       });
     }
   }
