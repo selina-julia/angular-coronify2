@@ -66,14 +66,10 @@
   </ng-template>
 
 
-  <div class="home-image" *ngIf="user?.isAdmin == false">
-    <img src="../assets/img/home.svg" alt="">
+  <div class="home-image">
+    <img class="admin-home-image" [class.admin-home-image]="user?.isAdmin == true" src="../assets/img/home.svg" alt="">
   </div>
 
-  <div class="home-image" *ngIf="user?.isAdmin == true">
-    <img class="admin-home-image" src="../assets/img/home.svg" alt="">
-  </div>
-</div>
 
-<!--<cfy-vaccination-search (vaccinationSelected)="vaccinationSelected($event)" class="column">
+  <!--<cfy-vaccination-search (vaccinationSelected)="vaccinationSelected($event)" class="column">
 </cfy-vaccination-search>-->
